@@ -3,6 +3,7 @@
 /public/storage
 /public/mailers
 /storage/*.key
+/storage
 /vendor
 .env
 .env.backup
