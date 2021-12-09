@@ -17,7 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 	return redirect(route('login'));
 });
+Route::get('/send-mail', function () {
 
+
+	Mail::send(array(), array(), function ($message)  {
+		$message->to('rs.sureshkumar@yahoo.com')
+    ->subject("AFSP mail gun")
+    ->setBody('all working', 'text/html');
+});
+});
 Route::get('/mail', function () {
 	foreach (new DirectoryIterator('../app/Mail') as $fileInfo)
 	{
