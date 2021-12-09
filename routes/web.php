@@ -23,7 +23,7 @@ Route::get('/send-mail', function () {
 	dispatch(new App\Jobs\SendMailJob('SendEmailDemo',array('email'=>'rs.sureshkumar@yahoo.com')));
 
 	dd('send mail successfully !!');
-});
+
 });
 Route::get('/mail', function () {
 	foreach (new DirectoryIterator('../app/Mail') as $fileInfo)
