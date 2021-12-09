@@ -20,10 +20,9 @@ Route::get('/', function () {
 Route::get('/send-mail', function () {
 
 
-	Mail::send(array(), array(), function ($message)  {
-		$message->to('rs.sureshkumar@yahoo.com')
-    ->subject("AFSP mail gun")
-    ->setBody('all working', 'text/html');
+	dispatch(new App\Jobs\SendMailJob('SendEmailDemo',array('email'=>'rs.sureshkumar@yahoo.com')));
+
+	dd('send mail successfully !!');
 });
 });
 Route::get('/mail', function () {
