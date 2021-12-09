@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Livewire;
+
+use App\Models\HelpfulResource;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+
+class HelpfulResourceManage extends Component
+{
+	use WithFileUploads;
+
+	public  $name, $url,$image, $resource_id,$order_by;
+
+	protected $listeners =['resourceEdit'=>'edit'];
+	function mount()
+	{
+		$this->resetInputFields();
+	}
+
+	public function render()
+	{
+		/*$targetFolder = '/var/www/vhosts/afsp-api.ogilvylab.co.za/httpdocs/storage/app/public';
+$linkFolder = '/var/www/vhosts/afsp-api.ogilvylab.co.za/httpdocs/public/storage';
+symlink($targetFolder,$linkFolder);
+echo 'Symlink completed';
+*/
+		return view('livewire.helpful-resource-manage');
+	}
+
+	public function resetInputFields(){
+		$this->resetErrorBag();
+		$this->resetValidation();
+		$this->name = '';
+		$this->url = '';
+		$this->image = '';
+		$this->resource_id = '';
+		$this->order_by = '';
+	}
+
+
+	function edit($id)
+	{
+
+		$this->resetInputFields();
+		if($id){
+			$resource=HelpfulResource::findOrFail($id);
+			$this->name=$resource->name;
+			$this->url=$resource->url;
+			$this->resource_id=$id;
+			$this->order_by=$resource->order_by;
+			$this->dispatchBrowserEvent('openResourceModal');
+		}
+	}
+
+
+	public function store()
+	{
+		$rules=['name' => 'required', 'url' => 'required|url','order_by'=>'required|integer'];
+		if(!$this->resource_id)
+		{
+			$rules['image'] = 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048';
+		}
+
+		$validatedDate = $this->validate($rules);
+		$data=$validatedDate;
+
+		if($this->image)
+		{
+			//$name = md5($this->image . microtime()).'.'.$this->image->extension();
+			$data['image'] = $this->image->store('images/resources/',"public");
+		}
+
+		HelpfulResource::updateorcreate ( [
+			'id'   => $this->resource_id,
+		],$data);
+
+		session()->flash('message', 'Resource Created Successfully.');
+		$this->resetInputFields();
+
+		$this->emitUp('closeResourceModal'); // Close model to using to jquery
+		$this->dispatchBrowserEvent('closeResourceModal1');
+	}
+}
