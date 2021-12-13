@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MemoryServerMediaController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 	return redirect(route('login'));
 });
+
+Route::get('image-upload', [ImageController::class, 'index' ])->name('image.index');
+Route::post('image-upload', [ImageController::class, 'upload' ])->name('image.upload');
+
 Route::get('/send-mail', function () {
 
 

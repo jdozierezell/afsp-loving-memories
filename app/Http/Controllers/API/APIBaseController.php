@@ -44,18 +44,26 @@ class APIBaseController extends Controller
 			$this->createDir($folder);
 			$media    = $request->file( $field );
 			$thumbnail=$folder.'/'.time().'_thumbnail.'.$media->extension();
+			/*$img = Image::make($media->path());
+			$img->resize(200, 200, function ($constraint) {
+				$constraint->aspectRatio();
+			})->save($thumbnail);*/
+
 			$img = Image::make($media->path());
 			$img->resize(200, 200, function ($constraint) {
 				$constraint->aspectRatio();
-			})->save($thumbnail);
+			});
+			Storage::put($folder.$thumbnail, $img);
+
 
 
 			/** @var \Illuminate\Http\UploadedFile $media */
 
 			$fileName = time() . '.' . $media->getClientOriginalExtension();
 			/** @var \Illuminate\Http\UploadedFile $file */
-			$file = $request->file($field);
-			$file->move($folder, $fileName);
+			//$file = $request->file($field);
+			//$file->move($folder, $fileName);
+			Storage::put($folder.$fileName, $img);
 
 
 
@@ -165,7 +173,7 @@ class APIBaseController extends Controller
 
 	function circleImageWithIcon($file_path,$icon_file,$return_path)
 	{
-		if(file_exists($return_path))
+		if( Storage::exists($return_path))
 		{
 			return $return_path;
 		}
@@ -198,7 +206,9 @@ class APIBaseController extends Controller
 		//Adjust paramerters according to your image
 		$this->imagecopymerge_alpha($img1, $icon_image, imagesx($img2)-50, 10, 0, 0, imagesx($icon_image), imagesy($icon_image), 100);
 
-		imagepng($img1,$return_path);
+		//imagepng($img1,$return_path);
+		Storage::put($return_path, $img1);
+
 
 	}
 

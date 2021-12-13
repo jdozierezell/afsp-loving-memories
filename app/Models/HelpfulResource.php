@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class HelpfulResource extends Model
 {
@@ -19,7 +20,14 @@ class HelpfulResource extends Model
 
 	public function getImageAttribute($val)
 	{
-		return url("storage/".$val);
+
+		return Storage::temporaryUrl(
+			$val,
+			now()->addMinutes(10),
+			['ResponseContentType' => 'application/octet-stream']
+		);
+
+		//return url("storage/".$val);
 	}
 
 }

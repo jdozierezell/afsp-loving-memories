@@ -73,10 +73,15 @@ class MemoryMediaController extends APIBaseController
 			$this->createDir($folder);
 
 			$thumbnail=$folder.'/'.time().'_thumbnail.'.$image->extension();
+			/*$img = Image::make($image->path());
+			$img->resize(200, 200, function ($constraint) {
+				$constraint->aspectRatio();
+			})->save($thumbnail);*/
 			$img = Image::make($image->path());
 			$img->resize(200, 200, function ($constraint) {
 				$constraint->aspectRatio();
-			})->save($thumbnail);
+			});
+			Storage::put($folder.$thumbnail, $img);
 
 			$memory=Memory::where('access_token', $request->get('memory_access_token'))->firstOrFail();
 			$memory->thumbnail =$thumbnail;

@@ -28,17 +28,29 @@ class MemoryPhotos extends Model
 
 	public function getImageAttribute($val)
 	{
-		return url($val);
+		if($val)
+			return Storage::temporaryUrl(
+				$val,
+				now()->addMinutes(10),
+				['ResponseContentType' => 'application/octet-stream']
+			);
+		//return url($val);
 	}
 	public function getUrlAttribute()
 	{
 		//add thumbnail to url
 		if($this->image)
 		{
+
 			$fileinfo = pathinfo($this->image);
 			$filename=$fileinfo['filename']."_thumbnail.".$fileinfo['extension'];
 			$image=$fileinfo['dirname']."/".$filename;
-			return url($image);
+				return Storage::temporaryUrl(
+					$image,
+					now()->addMinutes(10),
+					['ResponseContentType' => 'application/octet-stream']
+				);
+		//	return url($image);
 		}
 
 

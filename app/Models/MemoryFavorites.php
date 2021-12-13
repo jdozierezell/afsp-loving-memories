@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class MemoryFavorites extends Model
 {
@@ -21,7 +22,13 @@ class MemoryFavorites extends Model
 
 	public function getImageAttribute($val)
 	{
-		return url($val);
+		if($val)
+			return Storage::temporaryUrl(
+				$val,
+				now()->addMinutes(10),
+				['ResponseContentType' => 'application/octet-stream']
+			);
+		//return url($val);
 	}
 
 

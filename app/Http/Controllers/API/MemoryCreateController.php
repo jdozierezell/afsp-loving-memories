@@ -17,6 +17,7 @@ use App\Rules\IsMD5;
 use Auth;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Storage;
 use Validator;
 /**
  * @group Memory create management
@@ -76,7 +77,7 @@ class MemoryCreateController extends APIBaseController
 		MemoryFavorites::where('memory_id',$memory->id)->delete();
 
 		//create folder if not exists
-		$folder   = "memories/images/" . $request->get('memory_access_token') . "/favourites";
+		$folder   = "memories/images/" . $request->get('memory_access_token') . "/favourites/";
 		$folder=$this->createDir($folder);
 
 		$favorites=$request->file('favorites');
@@ -87,7 +88,9 @@ class MemoryCreateController extends APIBaseController
 			$favorite['image']->move($folder,$fileName);
 			$name=$favorites_names[$key]['name'];*/
 			$file=$folder.time() . '.jpeg';
-			Image::make(file_get_contents($favorite['image']))->save($file);
+			//Image::make(file_get_contents($favorite['image']))->save($file);
+			$avatar = Image::make(file_get_contents($favorite['image']))->stream();
+			Storage::put($file, $avatar);
 			MemoryFavorites::create(['memory_id'=>$memory->id,'name'=>$favorite['name'],'image'=>$file]);
 		}
 

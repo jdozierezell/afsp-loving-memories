@@ -3,8 +3,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\HelpfulResource;
+use Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\ImageManagerStatic;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Storage;
 
 class HelpfulResourceManage extends Component
 {
@@ -59,7 +63,7 @@ echo 'Symlink completed';
 		$rules=['name' => 'required', 'url' => 'required|url','order_by'=>'required|integer'];
 		if(!$this->resource_id)
 		{
-			$rules['image'] = 'required|image|mimes:jpg,jpeg,png,svg,gif|max:2048';
+			$rules['image'] = 'required|image|mimes:jpg,jpeg,png,svg,gif';
 		}
 
 		$validatedDate = $this->validate($rules);
@@ -67,8 +71,11 @@ echo 'Symlink completed';
 
 		if($this->image)
 		{
-			//$name = md5($this->image . microtime()).'.'.$this->image->extension();
-			$data['image'] = $this->image->store('images/resources/',"public");
+			$folder="images/resources/";
+			$name = md5($this->image . microtime()).'.'.$this->image->extension();
+			$avatar = Image::make(storage::get($this->image->path()))->resize(300, 300)->stream();
+			Storage::put($folder.$name, $avatar);
+			$data['image'] =$folder.$name;
 		}
 
 		HelpfulResource::updateorcreate ( [
