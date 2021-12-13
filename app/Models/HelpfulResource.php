@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
 
-class HelpfulResource extends Model
+class HelpfulResource extends BaseModel
 {
 	use HasFactory;
 
@@ -20,12 +20,8 @@ class HelpfulResource extends Model
 
 	public function getImageAttribute($val)
 	{
+		return $this->getPublicUrl($val);
 
-		return Storage::temporaryUrl(
-			$val,
-			now()->addMinutes(10),
-			['ResponseContentType' => 'application/octet-stream']
-		);
 
 		//return url("storage/".$val);
 	}

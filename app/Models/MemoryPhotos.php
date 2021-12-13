@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
 
-class MemoryPhotos extends Model
+class MemoryPhotos extends BaseModel
 {
 	use HasFactory;
 	protected $fillable = [
@@ -29,34 +29,20 @@ class MemoryPhotos extends Model
 
 	public function getImageAttribute($val)
 	{
-		if($val)
-			return Storage::temporaryUrl(
-				$val,
-				now()->addMinutes(10),
-				['ResponseContentType' => 'application/octet-stream']
-			);
-		//return url($val);
+		return $this->getPublicUrl($val);
 	}
 	public function getUrlAttribute()
 	{
 		//add thumbnail to url
 		if($this->image)
 		{
-
 			$fileinfo = pathinfo($this->image);
 			$filename=$fileinfo['filename']."_thumbnail.".$fileinfo['extension'];
 			$image=$fileinfo['dirname']."/".$filename;
-				return Storage::temporaryUrl(
-					$image,
-					now()->addMinutes(10),
-					['ResponseContentType' => 'application/octet-stream']
-				);
+			return $this->getPublicUrl($image);
 		//	return url($image);
 		}
-
-
 	}
-
 
 
 	public function getUpdatedAtAttribute($date)

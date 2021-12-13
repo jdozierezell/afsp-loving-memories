@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
 
-class Memory extends Model
+class Memory extends BaseModel
 {
 	use HasFactory;
 
@@ -83,23 +84,11 @@ class Memory extends Model
 
 	public function getCoverImageAttribute($val)
 	{
-		if($val)
-			return Storage::temporaryUrl(
-				$val,
-				now()->addMinutes(10),
-				['ResponseContentType' => 'application/octet-stream']
-			);
-		//	return url($val);
+		return $this->getPublicUrl($val);
 	}
 	public function getThumbnailAttribute($val)
 	{
-		if($val)
-			return Storage::temporaryUrl(
-				$val,
-				now()->addMinutes(10),
-				['ResponseContentType' => 'application/octet-stream']
-			);
-			//return url($val);
+		return $this->getPublicUrl($val);
 	}
 
 	public function getUpdatedAtAttribute($date)

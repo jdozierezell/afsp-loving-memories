@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class DashboardController extends APIBaseController
 {
 
+
 	/**
 	 * Show the application dashboard.
 	 *
