@@ -35,7 +35,7 @@ class APIBaseController extends Controller
 	 *
 	 * @return bool|string
 	 */
-	function uploadMedia(Request $request,$field)
+	function    uploadMedia(Request $request,$field)
 	{
 		/** @var Request $request */
 		if($request->has($field) )
@@ -43,27 +43,26 @@ class APIBaseController extends Controller
 			$folder   = "memories/".$field."s/" . $request->get( 'memory_access_token' ) . "/";
 			$this->createDir($folder);
 			$media    = $request->file( $field );
-			$thumbnail=$folder.'/'.time().'_thumbnail.'.$media->extension();
+			$time=time();
+			$thumbnail=$folder.'/'.$time.'_thumbnail.'.$media->extension();
 			/*$img = Image::make($media->path());
 			$img->resize(200, 200, function ($constraint) {
 				$constraint->aspectRatio();
 			})->save($thumbnail);*/
 
-			$img = Image::make($media->path());
-			$img->resize(200, 200, function ($constraint) {
-				$constraint->aspectRatio();
-			});
-			Storage::put($folder.$thumbnail, $img);
+			$imgThumb = Image::make($media)->resize(200, 200)->stream();
+			Storage::put($thumbnail, $imgThumb->__toString() );
 
 
 
 			/** @var \Illuminate\Http\UploadedFile $media */
 
-			$fileName = time() . '.' . $media->getClientOriginalExtension();
+			$fileName = $time . '.' . $media->getClientOriginalExtension();
 			/** @var \Illuminate\Http\UploadedFile $file */
 			//$file = $request->file($field);
 			//$file->move($folder, $fileName);
-			Storage::put($folder.$fileName, $img);
+			$full_image = Image::make($media)->stream();
+			Storage::put($folder.$fileName, $full_image->__toString());
 
 
 

@@ -70,18 +70,15 @@ class MemoryMediaController extends APIBaseController
 			$image = $request->file('image');
 			/** @var \Illuminate\Http\UploadedFile $image */
 			$folder   = "memories/images/" . $request->get( 'memory_access_token' ) . "/";
-			$this->createDir($folder);
-
+			//$this->createDir($folder);
 			$thumbnail=$folder.'/'.time().'_thumbnail.'.$image->extension();
-			/*$img = Image::make($image->path());
-			$img->resize(200, 200, function ($constraint) {
-				$constraint->aspectRatio();
-			})->save($thumbnail);*/
-			$img = Image::make($image->path());
+			$imgThumb = Image::make($image)->resize(200, 200)->stream();
+			Storage::put($thumbnail, $imgThumb->__toString() );
+			/*$img = Image::make($image);
 			$img->resize(200, 200, function ($constraint) {
 				$constraint->aspectRatio();
 			});
-			Storage::put($folder.$thumbnail, $img);
+			Storage::put($thumbnail, $img);*/
 
 			$memory=Memory::where('access_token', $request->get('memory_access_token'))->firstOrFail();
 			$memory->thumbnail =$thumbnail;
@@ -157,9 +154,9 @@ class MemoryMediaController extends APIBaseController
 		$memory=Memory::where('access_token', $request->get('memory_access_token'))->firstOrFail();
 		if($memory)
 		{
-			$path=$request->get($field);
+
 			//remove base url from path
-			$path=str_replace(url('')."/","",$path);
+			$path=$this->getImagePath($request->get($field));
 			if($cover)
 			{
 				//$memory=Memory::findOrFail($request->get('memory_id'))->where('cover_image',$path);
@@ -183,5 +180,14 @@ class MemoryMediaController extends APIBaseController
 			$response = [ 'message' => $field.' removed Successfully','photos'=>$photos ];
 			return response($response);
 		}
+	}
+
+	function getImagePath($val)
+	{
+		$fileinfo = parse_url($val);
+		$path=$fileinfo['path'];
+		$path_info=pathinfo($path);
+		$dir = ltrim($path_info['dirname'], '/');
+		return $dir."/".$path_info['basename'];
 	}
 }

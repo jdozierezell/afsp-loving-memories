@@ -26,22 +26,26 @@ class MemoryPhotos extends BaseModel
 	{
 		return date("Y-m-d",strtotime($date));
 	}
-
-	public function getImageAttribute($val)
-	{
-		return $this->getPublicUrl($val);
-	}
 	public function getUrlAttribute()
 	{
 		//add thumbnail to url
 		if($this->image)
 		{
-			$fileinfo = pathinfo($this->image);
-			$filename=$fileinfo['filename']."_thumbnail.".$fileinfo['extension'];
-			$image=$fileinfo['dirname']."/".$filename;
+			$fileinfo = parse_url($this->image);
+			$path=$fileinfo['path'];
+			$path_info=pathinfo($path);
+
+			$filename=$path_info['filename']."_thumbnail.".$path_info['extension'];
+			$dir = ltrim($path_info['dirname'], '/');
+			$image=$dir."/".$filename;
 			return $this->getPublicUrl($image);
-		//	return url($image);
+			//	return url($image);
 		}
+	}
+
+	public function getImageAttribute($val)
+	{
+		return $this->getPublicUrl($val);
 	}
 
 
