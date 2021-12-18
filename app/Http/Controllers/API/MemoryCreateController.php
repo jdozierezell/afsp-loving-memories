@@ -35,7 +35,29 @@ class MemoryCreateController extends APIBaseController
 		{
 			return $this->validatorFailResponse($validator);
 		}
-		$memory=Memory::updateOrCreate(['access_token'=>$request->get('memory_access_token')],['name'=>$request->get('name'),'loving'=>$request->get('loving'),'user_id'=>Auth::id(),'access_token'=>$this->generateAccessToken()]);
+		$memory=Memory::where('access_token', $request->get('memory_access_token'))->firstOrFail();
+		if($memory) {
+			$update=false;
+			if($memory->name!=$request->get('name'))
+			{
+				$update=true;
+				$memory->name=$request->get('name');
+			}
+
+			if($memory->loving!=$request->get('loving'))
+			{
+				$update=true;
+				$memory->loving=$request->get('loving');
+			}
+
+			if($update)
+				$memory->save();
+		}
+		else
+		{
+			Memory::create(['name'=>$request->get('name'),'loving'=>$request->get('loving'),'user_id'=>Auth::id(),'access_token'=>$this->generateAccessToken()]);
+		}
+		//$memory=Memory::updateOrCreate(['access_token'=>$request->get('memory_access_token')],['name'=>$request->get('name'),'loving'=>$request->get('loving'),'user_id'=>Auth::id(),'access_token'=>$this->generateAccessToken()]);
 		$this->assignDraftModeIfChanged($memory);
 		$response = ['memory_access_token' => $memory->access_token,'message'=>'Created Successfully'];
 
@@ -72,24 +94,27 @@ class MemoryCreateController extends APIBaseController
 		{
 			return $this->validatorFailResponse($validator);
 		}
+		$folder   = "memories/images/" . $request->get('memory_access_token') . "/favourites/";
+		//remove it from aws
+		Storage::deleteDirectory($folder);
 		//remove any favorites before
 		$memory=Memory::where('access_token', $request->get('memory_access_token'))->firstOrFail();
 		MemoryFavorites::where('memory_id',$memory->id)->delete();
 
 		//create folder if not exists
-		$folder   = "memories/images/" . $request->get('memory_access_token') . "/favourites/";
-		$folder=$this->createDir($folder);
 
-		$favorites=$request->file('favorites');
-		$favorites_names=$request->get('favorites');
+		//$folder=$this->createDir($folder);
+
+		$favorites=$request->get('favorites');
+
 		foreach((array)$favorites as $key=>$favorite)
 		{
-			/*$fileName = time() . '.' . $favorite['image']->getClientOriginalExtension();
+			/*$fileName = time() . '.' . $favorite['image']->getClientO riginalExtension();
 			$favorite['image']->move($folder,$fileName);
 			$name=$favorites_names[$key]['name'];*/
 			$file=$folder.time() . '.jpeg';
 			//Image::make(file_get_contents($favorite['image']))->save($file);
-			$avatar = Image::make(file_get_contents($favorite['image']))->stream();
+			$avatar = Image::make($favorite['image'])->stream();
 			Storage::put($file, $avatar);
 			MemoryFavorites::create(['memory_id'=>$memory->id,'name'=>$favorite['name'],'image'=>$file]);
 		}
@@ -175,6 +200,7 @@ class MemoryCreateController extends APIBaseController
 		{
 			return $this->validatorFailResponse($validator);
 		}
+
 		//find or fail
 		$memory=Memory::where('access_token', $request->get('memory_access_token'))->firstOrFail();
 		if($memory)
@@ -229,11 +255,13 @@ class MemoryCreateController extends APIBaseController
 	}
 	function submit(Request $request)
 	{
+
 		$validator = Validator::make($request->all(), ['memory_access_token' => 'required|string']);
 		if ($validator->fails())
 		{
 			return $this->validatorFailResponse($validator);
 		}
+
 		//find or fail
 		$memory=Memory::where('access_token', $request->get('memory_access_token'))->firstOrFail();
 		$this->submitForApproval($memory->id);
@@ -244,6 +272,7 @@ class MemoryCreateController extends APIBaseController
 
 	function submitForApproval($memory_id,$visibility)
 	{
+
 		$memory=Memory::findOrFail($memory_id);
 		$notification_type_id=1;
 		$mail_file="MemorySubmittedMail";
@@ -276,15 +305,22 @@ class MemoryCreateController extends APIBaseController
 		{
 			$thumbnail_path=$memory->getAttributes()['thumbnail'];
 			$cover_with_icon=str_replace("_thumbnail","_cover_with_submitted_icon",$thumbnail_path);
-			$return_path=public_path()."/".$cover_with_icon;
+			$return_path=$cover_with_icon;
+
 			$this->circleImageWithIcon($thumbnail_path,public_path('images/icon-memory-submitted.png'),$return_path);
 
 			$memory_detail['name']=$memory->name;
-			$memory_detail['cover_image']=url($cover_with_icon);
+			$memory_detail['cover_image']=Storage::temporaryUrl(
+				$return_path,
+				now()->addWeek(1),
+				['ResponseContentType' => 'application /octet-stream']
+			);;
 			$memory_detail['loving']=$memory->loving;
 			$memory_detail['email']=Auth::User()->email;
 			$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);
+
 			dispatch(new \App\Jobs\SendMailJob($mail_file,$memory_detail));
+
 		}
 
 

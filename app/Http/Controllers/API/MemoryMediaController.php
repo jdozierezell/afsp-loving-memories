@@ -69,7 +69,7 @@ class MemoryMediaController extends APIBaseController
 
 			$image = $request->file('image');
 			/** @var \Illuminate\Http\UploadedFile $image */
-			$folder   = "memories/images/" . $request->get( 'memory_access_token' ) . "/";
+			$folder   = "memories/images/" . $request->get( 'memory_access_token' );
 			//$this->createDir($folder);
 			$thumbnail=$folder.'/'.time().'_thumbnail.'.$image->extension();
 			$imgThumb = Image::make($image)->resize(200, 200)->stream();
@@ -159,12 +159,14 @@ class MemoryMediaController extends APIBaseController
 			$path=$this->getImagePath($request->get($field));
 			if($cover)
 			{
+				Storage::delete($path);
 				//$memory=Memory::findOrFail($request->get('memory_id'))->where('cover_image',$path);
 				$memory->cover_image ="";
 				$memory->save();
 			}
 			else if($field=='image')
 			{
+				Storage::delete($path);
 				MemoryPhotos::where(['memory_id'=>$memory->id,'image'=>$path])->delete();
 			}
 			else if($field=='video')

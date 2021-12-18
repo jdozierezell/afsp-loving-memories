@@ -11,6 +11,7 @@ use http\Env\Response;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Storage;
 use URL;
 use Validator;
 use Intervention\Image\ImageManager;
@@ -65,11 +66,15 @@ class ManageMemoryController extends APIBaseController
 
 		$thumbnail_path=$memory->getAttributes()['thumbnail'];
 		$cover_with_icon=str_replace("_thumbnail","_cover_with_approve_icon",$thumbnail_path);
-		$return_path=public_path()."/".$cover_with_icon;
+		$return_path=$cover_with_icon;
 		$this->circleImageWithIcon($thumbnail_path,public_path('images/icon-memory-approved.png'),$return_path);
 
 		$memory_detail['name']=$memory->name;
-		$memory_detail['cover_image']=url($cover_with_icon);
+		$memory_detail['cover_image']=Storage::temporaryUrl(
+			$return_path,
+			now()->addWeek(1),
+			['ResponseContentType' => 'application /octet-stream']
+		);;
 		$memory_detail['loving']=$memory->loving;
 		$memory_detail['email']=$memory->user->email;
 		$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);;

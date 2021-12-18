@@ -64,11 +64,6 @@ class APIBaseController extends Controller
 			$full_image = Image::make($media)->stream();
 			Storage::put($folder.$fileName, $full_image->__toString());
 
-
-
-
-
-
 			/*if($request->has('image') )
 			{
 				//$media = Image::make( $media->getRealPath() );
@@ -177,9 +172,11 @@ class APIBaseController extends Controller
 			return $return_path;
 		}
 
+
+
 		// Step 1 - Start with image as layer 1 (canvas).
 		$icon_image= ImageCreateFromString(file_get_contents($icon_file));
-		$img1 = ImageCreateFromString(file_get_contents($file_path));
+		$img1 = ImageCreateFromString(Storage::get($file_path));
 		$x=imagesx($img1) ;
 		$y=imagesy($img1);
 
@@ -205,8 +202,9 @@ class APIBaseController extends Controller
 		//Adjust paramerters according to your image
 		$this->imagecopymerge_alpha($img1, $icon_image, imagesx($img2)-50, 10, 0, 0, imagesx($icon_image), imagesy($icon_image), 100);
 
-		//imagepng($img1,$return_path);
-		Storage::put($return_path, $img1);
+	//	imagepng($img1,$return_path);
+		$imgThumb = Image::make($img1)->stream();
+		Storage::put($return_path, $imgThumb->__toString() );
 
 
 	}
