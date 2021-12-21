@@ -35,30 +35,37 @@ class MemoryCreateController extends APIBaseController
 		{
 			return $this->validatorFailResponse($validator);
 		}
-		$memory=Memory::where('access_token', $request->get('memory_access_token'))->firstOrFail();
-		if($memory) {
-			$update=false;
-			if($memory->name!=$request->get('name'))
-			{
-				$update=true;
-				$memory->name=$request->get('name');
-			}
 
-			if($memory->loving!=$request->get('loving'))
-			{
-				$update=true;
-				$memory->loving=$request->get('loving');
-			}
+		if($request->has('memory_access_token'))
+		{
+			$memory=Memory::where('access_token', $request->get('memory_access_token'))->firstOrFail();
+			if($memory) {
+				$update=false;
+				if($memory->name!=$request->get('name'))
+				{
+					$update=true;
+					$memory->name=$request->get('name');
+				}
 
-			if($update)
-				$memory->save();
+				if($memory->loving!=$request->get('loving'))
+				{
+					$update=true;
+					$memory->loving=$request->get('loving');
+				}
+
+				if($update)
+					$memory->save();
+
+				$this->assignDraftModeIfChanged($memory);
+			}
 		}
+
 		else
 		{
-			Memory::create(['name'=>$request->get('name'),'loving'=>$request->get('loving'),'user_id'=>Auth::id(),'access_token'=>$this->generateAccessToken()]);
+			$memory=Memory::create(['name'=>$request->get('name'),'loving'=>$request->get('loving'),'user_id'=>Auth::id(),'access_token'=>$this->generateAccessToken()]);
 		}
 		//$memory=Memory::updateOrCreate(['access_token'=>$request->get('memory_access_token')],['name'=>$request->get('name'),'loving'=>$request->get('loving'),'user_id'=>Auth::id(),'access_token'=>$this->generateAccessToken()]);
-		$this->assignDraftModeIfChanged($memory);
+
 		$response = ['memory_access_token' => $memory->access_token,'message'=>'Created Successfully'];
 
 		return response($response);
@@ -220,7 +227,7 @@ class MemoryCreateController extends APIBaseController
 					$access_token=$this->generateAccessToken();
 					$memory_detail['name']=$memory->name;
 					$memory_detail['logged_user_email']=$logged_user_email;
-					$memory_detail['cover_image']=$memory->cover_image;
+					$memory_detail['cover_image']=$this->circleImage($memory->getAttributes()['thumbnail']);;
 					$memory_detail['email']=$invite;
 					$memory_detail['access_token']=$access_token;
 					$memory_detail['loving']=$memory->loving;
@@ -285,6 +292,7 @@ class MemoryCreateController extends APIBaseController
 				$notification_type_id=2;
 				$mail_file="MemoryReSubmittedMail";
 				$memory->visible_type=$visibility;
+				$memory->status_id = 2;
 				$memory->save();
 			}
 			else

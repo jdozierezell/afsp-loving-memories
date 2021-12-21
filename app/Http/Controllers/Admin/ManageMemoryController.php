@@ -151,7 +151,7 @@ class ManageMemoryController extends APIBaseController
 		//create notification for user its approved
 		$this->createMemoryNotification(['memory_id'=>$memory->id,'user_to_notify'=>$memory->user_id,'type_id'=>2,'user_who_fired_event'=>1],$memory->user_id);
 		$memory_detail['name']=$memory->name;
-		$memory_detail['cover_image']=$memory->cover_image;
+		$memory_detail['cover_image']=$this->circleImage($memory->getAttributes()['thumbnail']);;
 		$memory_detail['loving']=$memory->loving;
 		$memory_detail['email']=$memory->user->email;
 		$memory_detail['friend_email']=$memory_friend->email;

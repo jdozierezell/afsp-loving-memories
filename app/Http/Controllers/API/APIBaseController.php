@@ -164,6 +164,54 @@ class APIBaseController extends Controller
 
 		return [$offset,$limit];
 	}
+	function circleImage($file_path)
+	{
+
+		$cover_with_icon=str_replace("_thumbnail","_thumbnail_circled",$file_path);
+		$return_path=$cover_with_icon;
+
+		if( Storage::exists($return_path))
+		{
+			return $return_path;
+		}
+		// Step 1 - Start with image as layer 1 (canvas).
+		$img1 = ImageCreateFromString(Storage::get($file_path));
+		$x=imagesx($img1) ;
+		$y=imagesy($img1);
+
+		// Step 2 - Create a blank image.
+		$img2 = imagecreatetruecolor($x, $y);
+		$bg = imagecolorallocate($img2, 255, 255, 255); // white background
+		imagefill($img2, 0, 0, $bg);
+		// Step 3 - Create the ellipse OR circle mask.
+		$e = imagecolorallocate($img2, 0, 0, 0); // black mask color
+		// Draw a ellipse mask
+		// imagefilledellipse ($img2, ($x/2), ($y/2), $x, $y, $e);
+		// OR
+		// Draw a circle mask
+		$r = $x <= $y ? $x : $y; // use smallest side as radius & center shape
+		imagefilledellipse ($img2, ($x/2), ($y/2), $r, $r, $e);
+		// Step 4 - Make shape color transparent
+		imagecolortransparent($img2, $e);
+		// Step 5 - Merge the mask into canvas with 100 percent opacity
+		imagecopymerge($img1, $img2, 0, 0, 0, 0, $x, $y, 100);
+		// Step 6 - Make outside border color around circle transparent
+		imagecolortransparent($img1, $bg);
+
+		//Adjust paramerters according to your image
+
+		//	imagepng($img1,$return_path);
+		$imgThumb = Image::make($img1)->stream();
+		Storage::put($return_path, $imgThumb->__toString() );
+
+		return Storage::temporaryUrl(
+			$return_path,
+			now()->addWeek(),
+			['ResponseContentType' => 'application /octet-stream']
+		);
+
+
+	}
 
 	function circleImageWithIcon($file_path,$icon_file,$return_path)
 	{

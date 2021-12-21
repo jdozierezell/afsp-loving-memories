@@ -73,7 +73,7 @@ class MemoryFriendController extends APIBaseController
 
 				//send mail
 				$memory_detail['name']=$memory->name;
-				$memory_detail['cover_image']=$memory->cover_image;
+				$memory_detail['cover_image']=$this->circleImage($memory->getAttributes()['thumbnail']);;
 				$memory_detail['loving']=$memory->loving;
 				$memory_detail['email']=$d['email'];
 				$memory_detail['logged_user_email']=$logged_user_email;
@@ -151,7 +151,7 @@ class MemoryFriendController extends APIBaseController
 		//send mail
 		$send_mail_address=User::where('id',$memory->user_id)->value('email');
 		$memory_detail['name']=$memory->name;
-		$memory_detail['cover_image']=$memory->cover_image;
+		$memory_detail['cover_image']=$this->circleImage($memory->getAttributes()['thumbnail']);;
 		$memory_detail['loving']=$memory->loving;
 		$memory_detail['logged_user_email']=$memory_friend->email;
 		$memory_detail['access_token']=$memory_friend->access_token;

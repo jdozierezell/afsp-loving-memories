@@ -183,7 +183,7 @@ class MemoryController extends APIBaseController
 
 
 		$memory_detail['name']=$memory->name;
-		$memory_detail['cover_image']=$memory->cover_image;
+		$memory_detail['cover_image']=$this->circleImage($memory->getAttributes()['thumbnail']);
 		$memory_detail['loving']=$memory->loving;
 		$memory_detail['email']=Auth::User()->email;
 		$memory_detail['url']=config('app.APP_FRONT_URL').config('frontendRoutes.start-memory');
