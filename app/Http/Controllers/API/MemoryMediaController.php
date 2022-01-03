@@ -54,9 +54,10 @@ class MemoryMediaController extends APIBaseController
 
 	function addCover(Request $request)
 	{
+
 		$validator = Validator::make($request->all(),
 			['memory_access_token' => 'required|string',
-			 'image'=>'mimes:jpeg,jpg,png,gif|required|max:100000']); //image max 100 mb
+			 'image'=>'mimes:jpeg,jpg,png,gif|required|max:'.$this->getMaxUploadSize()]); //image max 100 mb
 		if ($validator->fails())
 		{
 			return $this->validatorFailResponse($validator);
@@ -94,7 +95,7 @@ class MemoryMediaController extends APIBaseController
 	{
 		$validator = Validator::make($request->all(),
 			['memory_access_token' => 'required|string',
-			 'image'=>'mimes:jpeg,jpg,png,gif|required|max:100000']); //image max 100 mb
+			 'image'=>'mimes:jpeg,jpg,png,gif|required|max:'.$this->getMaxUploadSize()]); //image max 100 mb
 		if ($validator->fails())
 		{
 			return $this->validatorFailResponse($validator);
@@ -106,7 +107,7 @@ class MemoryMediaController extends APIBaseController
 	{
 		$validator = Validator::make($request->all(),
 			['memory_access_token' => 'required|string',
-			 'video'=>'required|mimes:mp4,ogx,oga,ogv,ogg,webm|required|max:1000000']); //image max 100 mb
+			 'video'=>'required|mimes:mp4,ogx,oga,ogv,ogg,webm|required|max:'.$this->getMaxUploadSize()]); //image max 100 mb
 		if ($validator->fails())
 		{
 			return $this->validatorFailResponse($validator);

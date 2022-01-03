@@ -272,6 +272,33 @@ class APIBaseController extends Controller
 
 
 	}
+	function getMaxUploadSize()
+	{
+		return $this->return_bytes((int)(ini_get('upload_max_filesize')));
+	}
+	function return_bytes($val)
+	{
+		$val  = trim($val);
+
+		if (is_numeric($val))
+			return $val;
+
+		$last = strtolower($val[strlen($val)-1]);
+		$val  = substr($val, 0, -1); // necessary since PHP 7.1; otherwise optional
+
+		switch($last) {
+			// The 'G' modifier is available since PHP 5.1.0
+			case 'g':
+				$val *= 1024;
+			case 'm':
+				$val *= 1024;
+			case 'k':
+				$val *= 1024;
+		}
+
+		return $val;
+	}
+
 
 
 }
