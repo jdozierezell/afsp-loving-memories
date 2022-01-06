@@ -150,7 +150,7 @@ class MemoryController extends APIBaseController
 				                  ->orWhere('description', 'LIKE', '%' . $search . '%');
 			                }
 		                })
-		                ->orderBy('id','desc')
+		                ->orderBy('name','asc')
 		                ->offset($offset)->limit($limit)->get();
 		$response = ['memories' => $memories];
 		return response($response);

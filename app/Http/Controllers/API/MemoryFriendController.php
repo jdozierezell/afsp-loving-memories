@@ -44,49 +44,73 @@ class MemoryFriendController extends APIBaseController
 		/** @var \App\Models\User $logged_user */
 		$logged_user=Auth::User();
 		$logged_user_email=$logged_user->email;
-		foreach((array)$data as $key=>$d)
+
+
+		$all_emails_posted=array();
+		if($data)
 		{
-			/*$memory_includes = MemoryFriends::where(['memory_id'=>$request->get('memory_id'),'email'=>$d['email']])->first();
+			foreach((array)$data as $key=>$d)
+			{
+				/*$memory_includes = MemoryFriends::where(['memory_id'=>$request->get('memory_id'),'email'=>$d['email']])->first();
 
-			if (!is_null($memory_includes)) {
-				$memory_includes->update([
-					'verified' => 0,
-				]);
-			}else{
-				MemoryFriends::create([
-					'email' =>$d['email'],
-					'verified' => 0,
-					'access_token' =>$this->generateAccessToken(),
-					'memory_id'=>$request->get('memory_id')
-				]);
-			}*/
+				if (!is_null($memory_includes)) {
+					$memory_includes->update([
+						'verified' => 0,
+					]);
+				}else{
+					MemoryFriends::create([
+						'email' =>$d['email'],
+						'verified' => 0,
+						'access_token' =>$this->generateAccessToken(),
+						'memory_id'=>$request->get('memory_id')
+					]);
+				}*/
 
-			$friend_exist=MemoryFriends::find(['email' =>$d['email'],'memory_id'=>$memory->id])->first();
-			if(!$friend_exist) {
-				$access_token=$this->generateAccessToken();
-				MemoryFriends::create( [
-					'email'        => $d['email'],
-					'verified'     => 0,
-					'access_token' => $access_token,
-					'memory_id'    => $memory->id
-				] );
+				$all_emails_posted[]=$d['email'];
+				$friend_exist=MemoryFriends::where(['email' =>$d['email'],'memory_id'=>$memory->id])->first();
+				if(!$friend_exist) {
+					$access_token=$this->generateAccessToken();
+					MemoryFriends::create( [
+						'email'        => $d['email'],
+						'verified'     => 0,
+						'access_token' => $access_token,
+						'memory_id'    => $memory->id
+					] );
 
-				//send mail
-				$memory_detail['name']=$memory->name;
-				$memory_detail['cover_image']=$this->circleImage($memory->getAttributes()['thumbnail']);;
-				$memory_detail['loving']=$memory->loving;
-				$memory_detail['email']=$d['email'];
-				$memory_detail['logged_user_email']=$logged_user_email;
-				$memory_detail['friend_email']=$d['email'];
-				$memory_detail['access_token']=$access_token;
-				$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.invite-friend-memory'),'access_token',$memory->access_token);
-				//\Mail::to($d['email'])->send(new FriendMemoryRequestMail($memory_detail));
-				dispatch(new \App\Jobs\SendMailJob('FriendMemoryRequestMail',$memory_detail));
+					//send mail
+					$memory_detail['name']=$memory->name;
+					$memory_detail['cover_image']=$this->circleImage($memory->getAttributes()['thumbnail']);;
+					$memory_detail['loving']=$memory->loving;
+					$memory_detail['email']=$d['email'];
+					$memory_detail['logged_user_email']=$logged_user_email;
+					$memory_detail['friend_email']=$d['email'];
+					$memory_detail['access_token']=$access_token;
+					$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.invite-friend-memory'),'access_token',$access_token);
+					//\Mail::to($d['email'])->send(new FriendMemoryRequestMail($memory_detail));
+					dispatch(new \App\Jobs\SendMailJob('FriendMemoryRequestMail',$memory_detail));
+				}
 			}
 
-
-
+			//delete friends if they removed
+			$all_friends=MemoryFriends::where('memory_id',$memory->id)->get();
+			if($all_friends)
+			{
+				foreach($all_friends as $all_friend)
+				{
+					if(!in_array($all_friend->email,$all_emails_posted))
+					{
+						MemoryFriends::where('id',$all_friend->id)->delete();
+					}
+				}
+			}
 		}
+		else //delete all
+		{
+			MemoryFriends::where('memory_id',$memory->id)->delete();
+		}
+
+
+
 
 		$response = [ 'message' => 'Friends invited Successfully' ];
 		return response($response);
@@ -121,9 +145,9 @@ class MemoryFriendController extends APIBaseController
 	{
 		$validator = Validator::make($request->all(),
 			['relationship' => 'required|string|max:255',
-				'description' => 'required|string',
-             'image' => 'required|string',
-				'access_token'=>['required',new IsMD5()]
+			 'description' => 'required|string',
+			 'image' => 'required|string',
+			 'access_token'=>['required',new IsMD5()]
 			]);
 		if ($validator->fails())
 		{
@@ -143,7 +167,7 @@ class MemoryFriendController extends APIBaseController
 			$file=$folder.time() . '.jpeg';
 			Image::make(file_get_contents($request->image))->save($file);
 		}
-	//	$memory_friend->image=$this->uploadMedia($request,'image');
+		//	$memory_friend->image=$this->uploadMedia($request,'image');
 		$memory_friend->save();
 
 		$memory=Memory::findOrFail($memory_friend->memory_id);
@@ -158,7 +182,7 @@ class MemoryFriendController extends APIBaseController
 		$memory_detail['email']=$send_mail_address;
 
 		//\Mail::to($send_mail_address)->send(new FriendMemorySubmittedMail($memory_detail));
-	//	dispatch(new \App\Jobs\SendMailJob('FriendMemorySubmittedMail',$memory_detail));
+		//	dispatch(new \App\Jobs\SendMailJob('FriendMemorySubmittedMail',$memory_detail));
 
 		$memory_detail['email']=$memory_friend->email;
 		dispatch(new \App\Jobs\SendMailJob('FriendMemorySubmittedContributedMail',$memory_detail));
@@ -238,7 +262,7 @@ class MemoryFriendController extends APIBaseController
 		$memory_detail['access_token']=$memory->access_token;
 
 		//\Mail::to($send_mail_address)->send(new AdminNotifyApproveFriendMemoryMail($memory_detail));
-	//	dispatch(new \App\Jobs\SendMailJob('AdminNotifyApproveFriendMemoryMail',$memory_detail));
+		//	dispatch(new \App\Jobs\SendMailJob('AdminNotifyApproveFriendMemoryMail',$memory_detail));
 		$response = ['message'=>'Memory Submitted waiting for Admin approve'];
 		return response($response);
 	}

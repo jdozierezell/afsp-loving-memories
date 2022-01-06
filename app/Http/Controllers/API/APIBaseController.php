@@ -274,7 +274,7 @@ class APIBaseController extends Controller
 	}
 	function getMaxUploadSize()
 	{
-		return $this->return_bytes((int)(ini_get('upload_max_filesize')));
+		return $this->return_bytes((ini_get('upload_max_filesize')));
 	}
 	function return_bytes($val)
 	{

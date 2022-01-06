@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\PostTooLargeException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
@@ -86,6 +87,12 @@ class Handler extends ExceptionHandler
 				return response()->json([
 					'error' => $error ? $error :'Resource not found'
 				], 404);
+			}
+			else if ($e instanceof PostTooLargeException) {
+				return response()->json([
+					'error' => $error ? $error :'File too large'
+				], 422);
+
 			}
 			else if ($e instanceof AuthenticationException) {
 				return response()->json([
