@@ -163,7 +163,7 @@ class MemoryController extends APIBaseController
 
 		list($offset,$limit)=$this->getPaginationFromRequest($request);
 
-		$memories=Memory::where(['user_id'=>$user_id])->select('name','thumbnail','access_token','status_id','visible_type')->orderBy('id','desc')->offset($offset)->limit($limit)->get();
+		$memories=Memory::where(['user_id'=>$user_id])->select('name','thumbnail','access_token','status_id','visible_type')->withCount('UnreadNotifications')->orderBy('id','desc')->offset($offset)->limit($limit)->get();
 		$response = ['memories' => $memories];
 		return response($response);
 	}

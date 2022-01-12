@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+	return $request->user();
 });
 
 
@@ -35,6 +35,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 	Route::post('password/reset', [ResetPasswordAPIController::class,'reset']);
 	Route::post('password/email', [ForgotPasswordAPIController::class,'sendResetLinkEmail'])->name('password.email');
 	Route::post('social/login/facebook', [ApiAuthController::class, 'socialLogin']);
+
 
 	Route::get('email/verify',  [\App\Http\Controllers\Auth\VerificationController::class, 'verify'])->name('verification.verify'); // Make sure to keep this as your route name
 
@@ -79,6 +80,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
 			Route::post('/notifications', [MemoryNotificationController::class,'latest'])->name('notifications.latest');
 			Route::post('/notification/read', [MemoryNotificationController::class,'markRead'])->name('notification.read');
+			Route::post('/notifications/all/read', [MemoryNotificationController::class,'markMemoryNotificationAllRead'])->name('notification.all.read');
 
 			//insert new memory
 			Route::post('/add', [MemoryCreateController::class,'add'])->name('add');
@@ -126,11 +128,12 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 
 		});
 
-
+		Route::post('user/notifications/all/read', [MemoryNotificationController::class, 'markUserNotificationAllRead'])->name('user.notifications.all.read');
 		Route::group(['prefix'=>'user','as'=>'user.'], function()
 		{
 			Route::post( '/memories', [ MemoryController::class, 'userMemories' ] )->name( 'userMemories' );
 			Route::post( '/update', [ ApiAuthController::class, 'update' ] )->name( 'update' );
+			Route::post( '/check/new/notifications', [ MemoryNotificationController::class, 'checkNewUserNotificationExist' ] )->name( 'new.notification.exist' );
 		});
 
 

@@ -34,7 +34,7 @@ class ApiAuthController extends APIBaseController
 		if (!$user->hasVerifiedEmail()) {
 			$user->sendEmailVerificationNotification();
 		}
-		$response = ['token' => $token,'verified'=>false];
+		$response = ['token' => $token,'verified'=>false,'notification_count'=>0];
 		return response($response, 200);
 	}
 
@@ -54,7 +54,7 @@ class ApiAuthController extends APIBaseController
 				$user_verified=false;
 				if($user->email_verified_at)
 					$user_verified=true;
-				$response = ['token' => $token,'verified'=>$user_verified];
+				$response = ['token' => $token,'verified'=>$user_verified,'notification_count'=>$user->notification_count];
 				return response($response, 200);
 			} else {
 				$response = ["message" => "Specified account not exist"];
@@ -96,7 +96,7 @@ class ApiAuthController extends APIBaseController
 		{
 			switch($provider)
 			{
-				case "facebook" || "google":
+				case "facebook": case "google":
 				{
 					$providerUser = Socialite::driver($provider)->userFromToken($token);
 					break;
@@ -183,6 +183,9 @@ class ApiAuthController extends APIBaseController
 			return response($response, 422);
 		}
 	}
+
+
+
 
 
 }

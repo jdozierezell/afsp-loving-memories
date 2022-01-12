@@ -77,6 +77,11 @@ class Memory extends BaseModel
 		return $this->hasMany(MemoryVisibility::class)->select(['email', 'access_token','memory_id'])->orderBy('id', 'desc');
 	}
 
+	function UnreadNotifications()
+	{
+		return $this->hasMany(MemoryNotifications::class)->where(['read'=>0])->orderBy('id', 'desc');
+	}
+
 	public function getCreatedAtAttribute($date)
 	{
 		return date("d F Y H:i", strtotime($date));

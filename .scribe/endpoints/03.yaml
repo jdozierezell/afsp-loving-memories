@@ -1,0 +1,179 @@
+name: 'Memory Media upload management'
+description: |-
+
+  APIs for Memory Media upload
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/add/cover
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      memory_access_token:
+        name: memory_access_token
+        description: ''
+        required: true
+        example: ea
+        type: string
+      image:
+        name: image
+        description: ''
+        required: false
+        example: null
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/add/image
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      memory_access_token:
+        name: memory_access_token
+        description: ''
+        required: true
+        example: est
+        type: string
+      image:
+        name: image
+        description: ''
+        required: false
+        example: null
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/add/video
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      memory_access_token:
+        name: memory_access_token
+        description: ''
+        required: true
+        example: aut
+        type: string
+      video:
+        name: video
+        description: ''
+        required: false
+        example: null
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/delete/cover
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      memory_access_token:
+        name: memory_access_token
+        description: ''
+        required: true
+        example: eum
+        type: string
+      image:
+        name: image
+        description: ''
+        required: true
+        example: eos
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/delete/image
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      memory_access_token:
+        name: memory_access_token
+        description: ''
+        required: true
+        example: maxime
+        type: string
+      image:
+        name: image
+        description: ''
+        required: true
+        example: iure
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/delete/video
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      memory_access_token:
+        name: memory_access_token
+        description: ''
+        required: true
+        example: nostrum
+        type: string
+      video:
+        name: video
+        description: ''
+        required: true
+        example: omnis
+        type: string
+    responses: []
+    responseFields: []

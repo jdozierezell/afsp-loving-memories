@@ -1,0 +1,151 @@
+name: 'Memory Friends management'
+description: |-
+
+  APIs for Memory Friends
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/friend/submit
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      relationship:
+        name: relationship
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: grfwxvnfodwbuasaevmwyamfqtueuwsjsoboiphgboulyextnxibmncwoaouvqbnalkjfyqcvbcfftcsluuiglvuvezblmdyhpadnhooieyamxfgjoenhhklezkkqryaug
+        type: string
+      description:
+        name: description
+        description: ''
+        required: true
+        example: at
+        type: string
+      image:
+        name: image
+        description: ''
+        required: true
+        example: delectus
+        type: string
+      access_token:
+        name: access_token
+        description: ''
+        required: true
+        example: quo
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/friend/review
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      access_token:
+        name: access_token
+        description: ''
+        required: true
+        example: quos
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/friend/approve
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      access_token:
+        name: access_token
+        description: ''
+        required: true
+        example: architecto
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/friend/delete
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      access_token:
+        name: access_token
+        description: ''
+        required: true
+        example: est
+        type: string
+      memory_access_token:
+        name: memory_access_token
+        description: ''
+        required: true
+        example: doloribus
+        type: string
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/memory/add/invite/friends
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      friends:
+        name: friends
+        description: 'Must have at least 1 items.'
+        required: true
+        example:
+          - []
+        type: 'object[]'
+      'friends[].email':
+        name: 'friends[].email'
+        description: 'Must be a valid email address.'
+        required: true
+        example: weissnat.christy@example.com
+        type: string
+    responses: []
+    responseFields: []

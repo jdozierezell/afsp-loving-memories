@@ -7,6 +7,7 @@ use App\Models\Memory;
 use App\Models\MemoryFriends;
 use App\Models\MemoryNotifications;
 use App\Models\User;
+use App\Rules\IsMD5;
 use Illuminate\Http\Request;
 use Auth;
 use Validator;
@@ -17,7 +18,7 @@ use Validator;
  */
 class MemoryNotificationController extends APIBaseController
 {
-    //
+	//
 
 	function  latest(Request $request)
 	{
@@ -136,12 +137,49 @@ class MemoryNotificationController extends APIBaseController
 		MemoryNotifications::where('id',$request->get('id'))->update(['read'=>1]);
 		//reduce count by 1
 		/** @var User $media */
-		User::find(Auth::id())->decrement('notification_count');
+		//User::find(Auth::id())->decrement('notification_count');
 
 		$response = [ 'message' => 'Update Success' ];
 		return response($response);
 	}
 
+	function checkNewUserNotificationExist(Request $request)
+	{
+		$notification_count = Auth::User()->notification_count;
+		$exist=false;
+		if($notification_count>0)
+		{
+			$exist=true;
+		}
+		$response = [ 'show_notification' => $exist ];
+		return response($response);
+	}
+
+	function markUserNotificationAllRead(Request $request)
+	{
+
+		/** @var User $media */
+		User::find(Auth::ID())->update(['notification_count'=>0]);
+
+		$response = [ 'message' => 'Update Success' ];
+		return response(Auth::ID());
+	}
+	function markMemoryNotificationAllRead(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+			['access_token' => 'required',new IsMD5()]);
+		if ($validator->fails())
+		{
+			return $this->validatorFailResponse($validator);
+		}
+
+		$memory=Memory::where(['access_token'=>$request->get('access_token')])->firstOrFail();
+
+		MemoryNotifications::where(['memory_id'=>$memory->id])->update(['read'=>1]);
+
+		$response = [ 'message' => 'Update Success' ];
+		return response($response);
+	}
 
 
 }
