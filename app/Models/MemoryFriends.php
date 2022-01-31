@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MemoryFriends extends Model
+class MemoryFriends extends BaseModel
 {
 	use HasFactory;
 	protected $fillable = [
@@ -23,6 +23,11 @@ class MemoryFriends extends Model
 	public function getNameAttribute()
 	{
 		return substr($this->email, 0, strrpos($this->email, '@'));
+	}
+
+	public function getImageAttribute($val)
+	{
+		return $this->getPublicUrl($val);
 	}
 
 	function getVerifiedColorAttribute()

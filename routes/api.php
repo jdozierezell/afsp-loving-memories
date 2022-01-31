@@ -35,8 +35,9 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 	Route::post('password/reset', [ResetPasswordAPIController::class,'reset']);
 	Route::post('password/email', [ForgotPasswordAPIController::class,'sendResetLinkEmail'])->name('password.email');
 	Route::post('social/login/facebook', [ApiAuthController::class, 'socialLogin']);
+	Route::post('social/login/google', [ApiAuthController::class, 'socialLogin']);
 
-
+	Route::post('friend/memory/info', [MemoryFriendController::class,'getMemoryInfoByFriendToken'])->name('memory-info');
 	Route::get('email/verify',  [\App\Http\Controllers\Auth\VerificationController::class, 'verify'])->name('verification.verify'); // Make sure to keep this as your route name
 
 
@@ -91,7 +92,9 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
 				Route::post('/review', [MemoryFriendController::class,'reviewFriendMemory'])->name('review');
 				Route::post('/approve', [MemoryFriendController::class,'approveFriendMemory'])->name('approve');
 				Route::post('/delete', [MemoryFriendController::class,'deleteFriendMemory'])->name('delete');
+
 			});
+			Route::post('/get/photos', [MemoryMediaController::class,'getMemoryPhotos'])->name('description');
 
 			//add media sub pages
 			Route::group(['prefix'=>'add','as'=>'add.','middleware'=>['verify.memory.belongto.user']], function()

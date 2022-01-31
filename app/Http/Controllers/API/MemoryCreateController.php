@@ -121,9 +121,17 @@ class MemoryCreateController extends APIBaseController
 			$name=$favorites_names[$key]['name'];*/
 			$file=$folder.time() . '.jpeg';
 			//Image::make(file_get_contents($favorite['image']))->save($file);
-			$avatar = Image::make($favorite['image'])->stream();
-			Storage::put($file, $avatar);
-			MemoryFavorites::create(['memory_id'=>$memory->id,'name'=>$favorite['name'],'image'=>$file]);
+			if (filter_var($favorite['image'], FILTER_VALIDATE_URL))
+			{
+
+			}
+			else
+			{
+				$avatar = Image::make($favorite['image'])->stream();
+				Storage::put($file, $avatar);
+				MemoryFavorites::create(['memory_id'=>$memory->id,'name'=>$favorite['name'],'image'=>$file]);
+			}
+
 		}
 
 		$memory->visible_type='draft';
@@ -277,12 +285,23 @@ class MemoryCreateController extends APIBaseController
 		return response($response);
 	}
 
-	function submitForApproval($memory_id,$visibility)
+	function submitForApproval($memory_id,$visibility='')
 	{
 
 		$memory=Memory::findOrFail($memory_id);
 		$notification_type_id=1;
 		$mail_file="MemorySubmittedMail";
+		if(!$visibility)
+		{
+			$visibility="public";
+			//check this memory has atleast one private email address
+			$private_mode=MemoryVisibility::where('memory_id',$memory->id)->exists();
+			if($private_mode)
+			{
+				$visibility="private";
+			}
+		}
+
 
 		if($memory->status_id>2)
 		{

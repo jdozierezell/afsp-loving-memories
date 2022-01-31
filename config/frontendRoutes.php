@@ -2,14 +2,14 @@
 
 return [
 
-	'view-memory'=>'/memory/?token={:access_token}',
-	'edit-memory'=>'/edit-memory/?token={:access_token}',
-	'admin-preview-memory'=>'/admin/memory/?token={:access_token}',
-	'preview-memory'=>'/memory/preview/?token={:access_token}',
-	'invite-friend-memory'=>'/memory/invite/?token={:access_token}',
-	'review-friend-memory'=>'/memory/friend/review/?token={:access_token}',
-	'review-friend-memory-pending-admin'=>'/memory/friend/review/pending/admin/?token={:access_token}',
-	'reset-password'=>'/reset-password/',
-	'start-memory'=>'/memory/',
-	'verify-account'=>'/account/',
+	'view-memory'=>'app/view-memory#{:access_token}',
+	'edit-memory'=>'app/edit-memory/#{:access_token}',
+	'admin-preview-memory'=>'/app/view-memory/?admin=1#{:access_token}',
+	'preview-memory'=>'/app/preview-memory/#{:access_token}',
+	'invite-friend-memory'=>'/app/add-friend-memory?token={:access_token}',
+	'review-friend-memory'=>'/app/review-friend-memory?token={:access_token}',
+	'review-friend-memory-pending-admin'=>'/app/review-friend-memory-admin?token={:access_token}',
+	'reset-password'=>'/app/reset-password/',
+	'start-memory'=>'/app/add-memory/',
+	'verify-account'=>'/app/verify-account/',
 ];

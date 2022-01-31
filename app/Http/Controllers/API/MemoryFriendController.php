@@ -18,6 +18,7 @@ use Auth;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Validator;
+use Storage;
 /**
  * @group Memory Friends management
  *
@@ -117,6 +118,33 @@ class MemoryFriendController extends APIBaseController
 
 	}
 
+	function getMemoryInfoByFriendToken(Request $request)
+	{
+		$validator = Validator::make($request->all(), [
+			"access_token"  => "required|string",
+		]);
+		if ($validator->fails())
+		{
+			return $this->validatorFailResponse($validator);
+		}
+		if($this->isValidMd5($request->get('access_token')))
+		{
+			$friend_memory=MemoryFriends::where('access_token', $request->get('access_token'))->firstOrFail();
+			$memory=Memory::where('id', $friend_memory->memory_id)->firstOrFail();
+
+			$return_data['name']=$memory->name;
+			$return_data['cover_image']=$memory->cover_image;
+			$return_data['thumbnail']=$memory->thumbnail;
+			$return_data['thumbnail']=$memory->thumbnail;
+
+			$response = [ 'memory' => $memory ];
+			return response($response);
+		}
+		else
+		{
+			return response(['error'=>'Invalid Hash'], 422);
+		}
+	}
 
 	function deleteFriendMemory(Request $request)
 	{
@@ -155,26 +183,34 @@ class MemoryFriendController extends APIBaseController
 		}
 
 		$memory_friend=MemoryFriends::where(['access_token'=>$request->get('access_token'),'verified'=>0])->firstOrFail();
+		$memory=Memory::findOrFail($memory_friend->memory_id);
 
 		$memory_friend->description=$request->get('description');
 		$memory_friend->relationship=$request->get('relationship');
+
 		$memory_friend->verified=0;
 		//create folder if not exists
-		$folder   = "memories/images/" . $request->get('memory_access_token') . "/friends";
+		$folder   = "memories/images/" . $memory->access_token . "/friends/";
 		$folder=$this->createDir($folder);
+		$file="";
 		if($request->has('image'))
 		{
+
 			$file=$folder.time() . '.jpeg';
-			Image::make(file_get_contents($request->image))->save($file);
+			$avatar = Image::make($request->get('image'))->stream();
+			Storage::put($file, $avatar);
+
 		}
+		$memory_friend->image=$file;
 		//	$memory_friend->image=$this->uploadMedia($request,'image');
 		$memory_friend->save();
 
-		$memory=Memory::findOrFail($memory_friend->memory_id);
+
 		//send notification to owner for review this friend memory
 		//send mail
 		$send_mail_address=User::where('id',$memory->user_id)->value('email');
 		$memory_detail['name']=$memory->name;
+
 		$memory_detail['cover_image']=$this->circleImage($memory->getAttributes()['thumbnail']);;
 		$memory_detail['loving']=$memory->loving;
 		$memory_detail['logged_user_email']=$memory_friend->email;
@@ -223,7 +259,9 @@ class MemoryFriendController extends APIBaseController
 		$memory_detail['submitted_by']=$memory_friend->email;
 		$memory_detail['relationship']=$memory_friend->relationship;
 		$memory_detail['access_token']=$memory_friend->access_token;
+		$memory_detail['memory_access_token']=$memory->access_token;
 		$memory_detail['description']=$memory_friend->description;
+		$memory_detail['image']=$memory_friend->image;
 		$memory_detail['approved_by_admin']=$approved_by_admin;
 		$memory_detail=array_merge($memory_info,$memory_detail);
 
@@ -252,7 +290,7 @@ class MemoryFriendController extends APIBaseController
 			$user_id=Auth::ID();
 
 		//memory friend submitted
-		$this->createMemoryNotification(['memory_id'=>$memory->id,'user_to_notify'=>$memory->user_id,'type_id'=>6,
+		$this->createMemoryNotification(['memory_id'=>$memory->id,'user_to_notify'=>$memory->user_id,'type_id'=>5,
 		                                 'user_who_fired_event'=>$user_id,'friend_memory_id'=>$memory_friend->id]);
 
 		//send email to admin to review this

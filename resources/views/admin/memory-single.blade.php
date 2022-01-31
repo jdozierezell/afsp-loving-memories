@@ -3,12 +3,13 @@
 @section('content')
 	<h1 class="mt-4">Memories</h1>
 
+
 	<div class="row">
 		<div class="col-md-12">
 
 			<div class="accordion" id="myAccordion">
 				<div class="accordion-item">
-					<h2 class="accordion-header" id="headingOne">
+					<h2 class="accordion-header" id="basic">
 						<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#basic-info">Basic Information</button>
 
 					</h2>
@@ -75,9 +76,9 @@
 											</div>
 										</div>
 									</form>
-									<!--<div class="form-group">
-										<a  class="btn btn-primary" href="{{config('app.APP_FRONT_URL')."/memory/view?token=".$memory->access_token}}">Preview Memory</a>
-									</div>-->
+									{{--<div class="form-group">
+										<a  target="_blank" class="btn btn-primary" href="{{$preview_url}}">Preview Memory</a>
+									</div>--}}
 								</div>
 							</div>
 
@@ -247,9 +248,9 @@
 							<label for="exampleFormControlTextarea1">Reject Reason</label>
 							<textarea class="form-control" name="reject_reason" required rows="3"></textarea>
 
-								@if($errors->has('reject_reason'))
-									<span class="text-danger">{{ $errors->first('reject_reason') }}</span>
-								@endif
+							@if($errors->has('reject_reason'))
+								<span class="text-danger">{{ $errors->first('reject_reason') }}</span>
+							@endif
 
 						</div>
 						<div class="form-group">
@@ -276,6 +277,12 @@
 	<script type="text/javascript">
 		$(document).ready(function()
 		{
+			if(location.hash != null && location.hash !== ""){
+				$('.collapse').removeClass('in');
+				$(location.hash + '.collapse').collapse('show');
+			}
+
+
 			$("#admin-preview-form").submit(function(e) {
 				e.preventDefault(); // avoid to execute the actual submit of the form.
 				var form = $(this);
@@ -287,7 +294,7 @@
 					success: function(data)
 					{
 						console.log(data);
-						//	window.open(data.url)
+						window.open(data.url)
 					},
 					error: function()
 					{

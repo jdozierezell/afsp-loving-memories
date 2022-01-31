@@ -73,7 +73,7 @@ echo 'Symlink completed';
 		{
 			$folder="images/resources/";
 			$name = md5($this->image . microtime()).'.'.$this->image->extension();
-			$avatar = Image::make(storage::get($this->image->path()))->resize(300, 300)->stream();
+			$avatar = Image::make(storage::get($this->image->path()))->resize(300, 200)->stream();
 			Storage::put($folder.$name, $avatar);
 			$data['image'] =$folder.$name;
 		}

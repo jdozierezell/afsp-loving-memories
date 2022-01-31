@@ -52,8 +52,10 @@ class SendMailJob implements ShouldQueue
 				if(!is_dir($folder)) {
 					mkdir($folder, 0755, true);
 				}
+				$file=$folder.md5(uniqid(microtime()));
+				$this->details['log_mail_file']=$file.".html";
+				$this->details['view_browser_link']=url('view-mailer?file='.$file);
 
-				$this->details['log_mail_file']=$folder.md5(uniqid(microtime())).".html";
 				$this->details['unsubscribe_link']=url(route('unsubscribe',['email'=>$this->details['email'],'hash'=>md5($this->details['email'].config('UNSUBSCRIBE_SECRET'))]));
 				$mail=new $mail_class($this->details);
 				\Mail::to($this->details['email'])->send($mail);

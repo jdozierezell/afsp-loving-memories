@@ -24,11 +24,16 @@ class MemoryNotificationController extends APIBaseController
 	{
 		$user_id=Auth::Id();
 		list($offset,$limit)=$this->getPaginationFromRequest($request);
-		$notifications=MemoryNotifications::with('memory')->where('user_to_notify',$user_id)->offset($offset)->limit($limit)->get();
+		$notifications=MemoryNotifications::with('memory')->where('user_to_notify',$user_id)->offset($offset)->limit($limit)->orderBy('created_at','desc')->get();
 		$data=array();
 		foreach($notifications as $notification)
 		{
-			$data[]=$this->formatNotificationMessage($notification);
+			$d=$this->formatNotificationMessage($notification);
+			if($d)
+			{
+				$data[]=$d;
+			}
+
 		}
 		$response = ['notifications' => $data];
 		return response($response);
@@ -40,7 +45,10 @@ class MemoryNotificationController extends APIBaseController
 		if($notification)
 		{
 			$memory=$notification->memory;
-
+			if(!$memory)
+			{
+				return false;
+			}
 			$notify['ago']=$notification->created_at->diffForHumans();;
 			$notify['thumbnail']=url($memory->thumbnail);
 			$notify['btn_text']='View';
@@ -160,9 +168,8 @@ class MemoryNotificationController extends APIBaseController
 
 		/** @var User $media */
 		User::find(Auth::ID())->update(['notification_count'=>0]);
-
 		$response = [ 'message' => 'Update Success' ];
-		return response(Auth::ID());
+		return response($response);
 	}
 	function markMemoryNotificationAllRead(Request $request)
 	{

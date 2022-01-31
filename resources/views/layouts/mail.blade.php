@@ -505,14 +505,14 @@
 											<tr>
 												<td valign="top" align="center" bgcolor="#FFFFFF"
 												    style="font-family: 'Helvetica', Arial, sans-serif; text-align: center; font-size: 12px; line-height: 18px; color: #8E8E8E!important;">
-													@isset($log_mail_file)
-														If you have trouble reading this email, <a href="{{url($log_mail_file)}}" target="_blank" style="font-size: 12px; line-height: 18px; color: #8E8E8E!important;">view in your browser.</a> <br>
+													@isset($view_browser_link)
+														If you have trouble reading this email, <a href="{{url($view_browser_link)}}" target="_blank" style="font-size: 12px; line-height: 18px; color: #8E8E8E!important;">view in your browser.</a> <br>
 													@endisset
-													@isset($memory['log_mail_file'])
-															If you have trouble reading this email, <a href="{{url($memory['log_mail_file'])}}" target="_blank" style="font-size: 12px; line-height: 18px; color: #8E8E8E!important;">view in your browser.</a> <br>
+													@isset($memory['view_browser_link'])
+															If you have trouble reading this email, <a href="{{url($memory['view_browser_link'])}}" target="_blank" style="font-size: 12px; line-height: 18px; color: #8E8E8E!important;">view in your browser.</a> <br>
 													@endisset
-													@isset($user['log_mail_file'])
-														If you have trouble reading this email, <a href="{{url($user['log_mail_file'])}}" target="_blank" style="font-size: 12px; line-height: 18px; color: #8E8E8E!important;">view in your browser.</a> <br>
+													@isset($user['view_browser_link'])
+														If you have trouble reading this email, <a href="{{url($user['view_browser_link'])}}" target="_blank" style="font-size: 12px; line-height: 18px; color: #8E8E8E!important;">view in your browser.</a> <br>
 													@endisset
 													@isset($memory['unsubscribe_link'])
 														If you wouldn’t like to receive newsletters from AFSP <a href="{{$memory['unsubscribe_link']}}" target="_blank" style="font-size: 12px; line-height: 18px; color: #8E8E8E!important;">unsubscribe here</a>.

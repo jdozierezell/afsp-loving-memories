@@ -22,7 +22,7 @@
 	</form>
 
 
-	<x-table.TStart :headers="['Name','Loving','Visible','status','created Date','Actions']">
+	<x-table.TStart :headers="['Name','Loving','Visible','status','Active','created Date','Actions']">
 		<x-slot name="body">
 			@foreach($body  as $memory)
 				<x-table.row>
@@ -31,6 +31,9 @@
 					<x-table.cell>{{$memory->visible_type}}</x-table.cell>
 					<x-table.cell>
 						<span class="badge rounded-pill {{$memory->status->status_color}}">	{{$memory->status->name}}</span>
+					</x-table.cell>
+					<x-table.cell>
+						<span class="badge rounded-pill {{$memory->active_status_color}}">	{{$memory->active_status_name}}</span>
 					</x-table.cell>
 					<x-table.cell  appendClasses="text-right">{{$memory->created_at}}</x-table.cell>
 					<x-table.cell>

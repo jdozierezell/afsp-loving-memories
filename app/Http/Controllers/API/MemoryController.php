@@ -15,6 +15,7 @@ use App\Rules\IsMD5;
 use Auth;
 use Illuminate\Http\Request;
 use Validator;
+use DB;
 /**
  * @group Memory fetch management
  *
@@ -26,7 +27,7 @@ class MemoryController extends APIBaseController
 	{
 		list($offset,$limit)=$this->getPaginationFromRequest($request);
 
-		$memories=Memory::where(['status_id'=>3,'visible_type'=>'public'])->select('name','thumbnail','access_token')->orderBy('id','desc')->offset($offset)->limit($limit)->get();
+		$memories=Memory::where(['status_id'=>3,'visible_type'=>'public'])->select('name','thumbnail','access_token')->orderBy(DB::raw('RAND()'))->offset($offset)->limit($limit)->get();
 		$response = ['memories' => $memories];
 		return response($response);
 	}
@@ -61,21 +62,30 @@ class MemoryController extends APIBaseController
 			}
 			else if($memory->status_id==4)
 			{
+
 				$response = ['message' => 'rejected'];
 			}
 			else if($memory->status_id==2)
 			{
-				$response = ['message' => 'Pending'];
+				//if user logged check memory belong to use
+				if(Auth::Id()==$memory->id)
+				{
+					$memory_info=$this->getMemoryFullInfo($memory->id);
+					$response = ['memory' => $memory_info,'message'=>'success'];
+				}
+				else{
+					$response = ['message' => 'Pending'];
+				}
+
 			}
-			if($memory->status_id==3)
+			else if($memory->status_id==3)
 			{
 				$memory_info=$this->getMemoryFullInfo($memory->id);
 				$response = ['memory' => $memory_info,'message'=>'success'];
 			}
 			else
-			{
 				$response = ['message' => 'Draft'];
-			}
+
 
 			return response($response);
 		}
@@ -90,7 +100,9 @@ class MemoryController extends APIBaseController
 
 	function getMemoryPreviewInfo($memory_id)
 	{
-		return Memory::with(['photos','favorites','specialDates','friends','user','verifiedFriends'])->where('id',$memory_id)->get();
+		return Memory::with(['photos','favorites','specialDates','friends','user','verifiedFriends'])
+						->withCount('pendingMemories')
+		             ->where('id',$memory_id)->get();
 	}
 
 	function adminPreview(Request $request)

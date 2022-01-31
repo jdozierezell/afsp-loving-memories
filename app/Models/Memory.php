@@ -22,9 +22,10 @@ class Memory extends BaseModel
 		'access_token',
 		'reminder',
 		'status_id',
-		'user_id'
+		'user_id',
+		'active'
 	];
-
+	protected $appends = ['activeStatusColor','activeStatusName'];
 	public function newQuery()
 	{
 		return parent::newQuery()->whereActive(true);
@@ -71,6 +72,11 @@ class Memory extends BaseModel
 	{
 		return $this->hasMany(MemoryFriends::class)->where('verified',2)->select(['email', 'description','access_token','relationship','image','memory_id'])->orderBy('id', 'desc');
 	}
+	function pendingMemories()
+	{
+		return $this->hasMany(MemoryFriends::class)->where('verified',0)->select(['email', 'description','access_token','relationship','image','memory_id'])->orderBy('id', 'desc');
+	}
+
 
 	function sharedVisibility()
 	{
@@ -100,5 +106,31 @@ class Memory extends BaseModel
 	{
 		return date("d F Y H:i", strtotime($date));
 	}
+
+	function getActiveStatusColorAttribute ()
+	{
+		if(isset($this->active))
+		{
+			return
+				[
+					'0'=>'bg-info text-dark',
+					'1'=>'bg-success text-dark',
+				][$this->active];
+		}
+
+	}
+
+	function getActiveStatusNameAttribute ()
+	{
+		if(isset($this->active)) {
+			return
+				[
+					'1' => 'Yes',
+					'2' => 'No',
+				][ $this->active ];
+		}
+	}
+
+
 
 }
