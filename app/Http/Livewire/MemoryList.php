@@ -26,7 +26,7 @@ class MemoryList extends Component
 	{
 		$memory_status_selected= $this->memory_status_selected;
 		$search= $this->search;
-		$memories = Memory::withoutGlobalScopes()->with('status')
+		$memories = Memory::with('status')
 			->select(['id','name','loving','visible_type','status_id','active','created_at'])
 			->where(function($q) use ($search) { // $term is the search term on the query string
 				if($search)

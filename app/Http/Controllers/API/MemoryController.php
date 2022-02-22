@@ -27,7 +27,7 @@ class MemoryController extends APIBaseController
 	{
 		list($offset,$limit)=$this->getPaginationFromRequest($request);
 
-		$memories=Memory::where(['status_id'=>3,'visible_type'=>'public'])->select('name','thumbnail','access_token')->orderBy(DB::raw('RAND()'))->offset($offset)->limit($limit)->get();
+		$memories=Memory::where(['status_id'=>3,'visible_type'=>'public'])->select('name','thumbnail','access_token')->orderBy(DB::raw('RAND()'))->offset($offset)->limit(50)->get();
 		$response = ['memories' => $memories];
 		return response($response);
 	}
@@ -101,7 +101,7 @@ class MemoryController extends APIBaseController
 	function getMemoryPreviewInfo($memory_id)
 	{
 		return Memory::with(['photos','favorites','specialDates','friends','user','verifiedFriends'])
-						->withCount('pendingMemories')
+		             ->withCount('pendingMemories')
 		             ->where('id',$memory_id)->get();
 	}
 

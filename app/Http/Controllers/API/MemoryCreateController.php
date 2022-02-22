@@ -303,7 +303,7 @@ class MemoryCreateController extends APIBaseController
 		}
 
 
-		if($memory->status_id>2)
+		if($memory->status_id>=2)
 		{
 			//check any update happend
 			if($memory->visible_type=='draft')

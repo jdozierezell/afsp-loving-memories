@@ -32,12 +32,12 @@ class MemoryMediaController extends APIBaseController
 			{
 				$memory->cover_image =$uploaded_file;
 				$memory->save();
-				$this->assignDraftModeIfChanged($memory);
+				$this->assignDraftModeIfChanged($memory,1);//forcing to draft new photos
 			}
 			else if($field=='image')
 			{
 				MemoryPhotos::create(['memory_id'=>$memory->id,$field=>$uploaded_file]);
-				$this->assignDraftModeIfChanged($memory);
+				$this->assignDraftModeIfChanged($memory,1);//assignDraftModeIfChanged
 			}
 
 			else
@@ -119,6 +119,7 @@ class MemoryMediaController extends APIBaseController
 
 		$memory->cover_image =$local_image_path;
 		$memory->thumbnail =$thumbnail;
+		$memory->visible_type='draft';
 		$memory->save();
 
 

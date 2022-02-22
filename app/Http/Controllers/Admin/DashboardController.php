@@ -23,18 +23,20 @@ class DashboardController extends APIBaseController
 	 */
 	public function index()
 	{
+		/*$memory=Memory::where('access_token','2f4a41bb2e750169f6f9ff2e6922d9cd')->firstOrFail();
+		$thumbnail_path=$memory->getAttributes()['thumbnail'];
+		$cover_with_icon=str_replace("_thumbnail","_cover_with_submitted_icon",$thumbnail_path);
+		$return_path=$cover_with_icon;
 
-		$memory_detail['name']="aaaaa";
-		$memory_detail['email']="rs.sureshkumar@yahoo.com";
-		$memory_detail['reject_reason']="asdasdasd";
-		$memory_detail['cover_image']="";;
-		$memory_detail['loving']="ASas";
-		$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',123);;
-		dispatch(new \App\Jobs\SendMailJob('MemoryRejectedMail',$memory_detail));
-
-dd(1);
-
-		$memories = Memory::withoutGlobalScopes()->all();
+		$this->circleImageWithIcon($thumbnail_path,public_path('images/icon-memory-submitted.png'),$return_path);
+		$img_path=Storage::temporaryUrl(
+			$return_path,
+			now()->addWeek(1),
+			['ResponseContentType' => 'application /octet-stream']
+		);;
+		return Image::make($img_path)->response();
+dd($return_path);*/
+		$memories = Memory::withoutGlobalScopes()->get();
 		$total = $memories->count();
 		$draft = $memories->where('status_id', '1')->count();
 		$submitted = $memories->where('status_id', '2')->count();
@@ -43,4 +45,6 @@ dd(1);
 
 		return view('admin/dashboard',compact('total','draft','submitted','approved','rejected'));
 	}
+
+
 }

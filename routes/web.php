@@ -79,6 +79,8 @@ Route::middleware('auth:web')->group(function () {
 		Route::get('/memories', [App\Http\Controllers\Admin\ManageMemoryController::class, 'index'])->name('memories');
 		Route::get('/memory/view/{memory:id}', [App\Http\Controllers\Admin\ManageMemoryController::class, 'single'])->name('memory');
 		Route::post('/memory/approve', [App\Http\Controllers\Admin\ManageMemoryController::class, 'approve'])->name('memory-approve');
+		Route::post('/memory/delete', [App\Http\Controllers\Admin\ManageMemoryController::class, 'delete'])->name('memory-delete');
+		Route::post('/memory/restore', [App\Http\Controllers\Admin\ManageMemoryController::class, 'restore'])->name('memory-restore');
 		Route::post('/memory/reject', [App\Http\Controllers\Admin\ManageMemoryController::class, 'reject'])->name('memory-reject');
 		Route::post('/memory/preview', [App\Http\Controllers\Admin\ManageMemoryController::class, 'preview'])->name('memory-preview');
 		//friend memory admin approve

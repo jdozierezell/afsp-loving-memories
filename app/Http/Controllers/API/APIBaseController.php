@@ -147,9 +147,9 @@ class APIBaseController extends Controller
 		return substr($email, 0, strrpos($email, '@'));
 	}
 
-	function assignDraftModeIfChanged($memory)
+	function assignDraftModeIfChanged($memory,$force=false)
 	{
-		if(!$memory->wasRecentlyCreated && $memory->wasChanged() && $memory->visible_type!='draft' ){
+		if(!($memory->wasRecentlyCreated && $memory->wasChanged() && $memory->visible_type!='draft') || $force){
 			// performed an update
 			$memory->visible_type='draft';
 			$memory->save();
@@ -176,7 +176,7 @@ class APIBaseController extends Controller
 		}
 		// Step 1 - Start with image as layer 1 (canvas).
 		$img1 = ImageCreateFromString(Storage::get($file_path));
-		$x=imagesx($img1) ;
+		$x=imagesx($img1);
 		$y=imagesy($img1);
 
 		// Step 2 - Create a blank image.
@@ -217,7 +217,7 @@ class APIBaseController extends Controller
 	{
 		if( Storage::exists($return_path))
 		{
-			return $return_path;
+				return $return_path;
 		}
 
 
@@ -250,8 +250,17 @@ class APIBaseController extends Controller
 		//Adjust paramerters according to your image
 		$this->imagecopymerge_alpha($img1, $icon_image, imagesx($img2)-50, 10, 0, 0, imagesx($icon_image), imagesy($icon_image), 100);
 
-	//	imagepng($img1,$return_path);
-		$imgThumb = Image::make($img1)->stream();
+
+
+		//	imagepng($img1,$return_path);
+		$img=Image::make($img1);
+
+		$img->resizeCanvas(220, 220, 'center', false, '#ffffff');
+
+
+		//$imgThumb = Image::make($img1)->stream();
+
+		$imgThumb = $img->stream();
 		Storage::put($return_path, $imgThumb->__toString() );
 
 
@@ -298,7 +307,4 @@ class APIBaseController extends Controller
 
 		return $val;
 	}
-
-
-
 }

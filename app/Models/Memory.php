@@ -6,7 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Storage;
-
+use Auth;
 class Memory extends BaseModel
 {
 	use HasFactory;
@@ -25,10 +25,14 @@ class Memory extends BaseModel
 		'user_id',
 		'active'
 	];
-	protected $appends = ['activeStatusColor','activeStatusName'];
+	protected $appends = ['activeStatusColor','activeStatusName','descCustom'];
 	public function newQuery()
 	{
-		return parent::newQuery()->whereActive(true);
+
+		if(!Auth::guard('web')->check())
+			return parent::newQuery()->whereActive(true);
+		else
+			return parent::newQuery();
 	}
 
 
@@ -126,11 +130,62 @@ class Memory extends BaseModel
 			return
 				[
 					'1' => 'Yes',
-					'2' => 'No',
+					'0' => 'No',
 				][ $this->active ];
 		}
 	}
 
+	function getDescCustomAttribute ()
+	{
+		if($this->description)
+		{
+			return implode("{%@}",$this->breakLongText($this->description,1000,1100));
+		}
+	}
 
+	function breakLongText($text, $length = 200, $maxLength = 250){
+		//Text length
+		$textLength = strlen($text);
+
+		//initialize empty array to store split text
+		$splitText = array();
+
+		//return without breaking if text is already short
+		if (!($textLength > $maxLength)){
+			$splitText[] = $text;
+			return $splitText;
+		}
+
+		//Guess sentence completion
+		$needle = '.';
+
+		/*iterate over $text length
+		  as substr_replace deleting it*/
+		while (strlen($text) > $length){
+
+			$end = strpos($text, $needle, $length);
+
+			if ($end === false){
+
+				//Returns FALSE if the needle (in this case ".") was not found.
+				$splitText[] = substr($text,0);
+				$text = '';
+				break;
+
+			}
+
+			$end++;
+			$splitText[] = substr($text,0,$end);
+			$text = substr_replace($text,'',0,$end);
+
+		}
+
+		if ($text){
+			$splitText[] = substr($text,0);
+		}
+
+		return $splitText;
+
+	}
 
 }

@@ -85,6 +85,66 @@ class ManageMemoryController extends APIBaseController
 		return back()->with('success','Memory Approved');
 	}
 
+	function delete(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+			['id' => 'required']);
+		if ($validator->fails())
+		{
+			return back()->with('error','You are not allowed to access this page.');
+		}
+
+		$memory=Memory::findOrFail($request->id);
+		$memory->active=0;
+		$memory->save();
+
+
+		//create notification for user its approve
+		//user_id will be admin
+		$this->createMemoryNotification(['memory_id'=>$memory->id,'user_to_notify'=>$memory->user_id,'type_id'=>2,'user_who_fired_event'=>1],$memory->user_id);
+
+		/*$thumbnail_path=$memory->getAttributes()['thumbnail'];
+		$cover_with_icon=str_replace("_thumbnail","_cover_with_approve_icon",$thumbnail_path);
+		$return_path=$cover_with_icon;
+		$this->circleImageWithIcon($thumbnail_path,public_path('images/icon-memory-approved.png'),$return_path);
+
+		$memory_detail['name']=$memory->name;
+		$memory_detail['cover_image']=Storage::temporaryUrl(
+			$return_path,
+			now()->addWeek(1),
+			['ResponseContentType' => 'application /octet-stream']
+		);;
+
+
+		$memory_detail['loving']=$memory->loving;
+		$memory_detail['email']=$memory->user->email;
+		$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);;
+		$memory_detail['edit_link']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.edit-memory'),'access_token',$memory->access_token);;
+		dispatch(new \App\Jobs\SendMailJob('MemoryDeletedMail',$memory_detail));*/
+
+		return back()->with('warning','Memory Deleted');
+	}
+	function restore(Request $request)
+	{
+		$validator = Validator::make($request->all(),
+			['id' => 'required']);
+		if ($validator->fails())
+		{
+			return back()->with('error','You are not allowed to access this page.');
+		}
+
+		$memory=Memory::findOrFail($request->id);
+		$memory->active=1;
+		$memory->save();
+
+
+		//create notification for user its approve
+		//user_id will be admin
+		$this->createMemoryNotification(['memory_id'=>$memory->id,'user_to_notify'=>$memory->user_id,'type_id'=>2,'user_who_fired_event'=>1],$memory->user_id);
+
+		return back()->with('success','Memory Restored');
+	}
+
 	function reject(Request $request)
 	{
 		$validator = Validator::make($request->all(),

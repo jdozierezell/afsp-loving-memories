@@ -245,7 +245,7 @@
 				<form method="post" class="" action="{{url('admin/memory/reject')}}">
 					<div class="col text-center">
 						<div class="form-group">
-							<label for="exampleFormControlTextarea1">Reject Reason</label>
+							<label for="exampleFormControlTextarea1">Decline Reason</label>
 							<textarea class="form-control" name="reject_reason" required rows="3"></textarea>
 
 							@if($errors->has('reject_reason'))
@@ -259,12 +259,41 @@
 
 						</div>
 						<br>
-						<button  class="btn btn-warning" type="submit">Reject</button>
+						<button  class="btn btn-warning" type="submit">Decline</button>
 					</div>
 				</form>
 			</div>
 		</div>
 
+		@if($memory->active==1)
+		<div class="row">
+			<div class="col">
+				<form method="post" action="{{url('admin/memory/delete')}}">
+					<div class="col text-center">
+						<div class="form-group">
+							@csrf
+							<input type="hidden" value="{{$memory->id}}" name="id">
+							<button  class="btn btn-danger" type="submit">Delete</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		@else
+			<div class="row">
+				<div class="col">
+					<form method="post" action="{{url('admin/memory/restore')}}">
+						<div class="col text-center">
+							<div class="form-group">
+								@csrf
+								<input type="hidden" value="{{$memory->id}}" name="id">
+								<button  class="btn btn-success" type="submit">Restore</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		@endif
 	@else
 		<p class="text-center px-4">Memory is in draft mode no actions allowed</p>
 	@endif
