@@ -56,35 +56,44 @@ class MemoryController extends APIBaseController
 		}
 		if($memory)
 		{
-			if($memory->status_id==1)
-			{
-				$response = ['message' => 'Draft'];
-			}
-			else if($memory->status_id==4)
-			{
-
-				$response = ['message' => 'rejected'];
-			}
-			else if($memory->status_id==2)
-			{
-				//if user logged check memory belong to use
-				if(Auth::Id()==$memory->id)
-				{
-					$memory_info=$this->getMemoryFullInfo($memory->id);
-					$response = ['memory' => $memory_info,'message'=>'success'];
-				}
-				else{
-					$response = ['message' => 'Pending'];
-				}
-
-			}
-			else if($memory->status_id==3)
+			if(Auth::Id()==$memory->id)
 			{
 				$memory_info=$this->getMemoryFullInfo($memory->id);
 				$response = ['memory' => $memory_info,'message'=>'success'];
 			}
 			else
-				$response = ['message' => 'Draft'];
+			{
+				if($memory->status_id==1)
+				{
+					$response = ['message' => 'Draft'];
+				}
+				else if($memory->status_id==4)
+				{
+
+					$response = ['message' => 'rejected'];
+				}
+				else if($memory->status_id==2)
+				{
+					//if user logged check memory belong to use
+					if(Auth::Id()==$memory->id)
+					{
+						$memory_info=$this->getMemoryFullInfo($memory->id);
+						$response = ['memory' => $memory_info,'message'=>'success'];
+					}
+					else{
+						$response = ['message' => 'Pending'];
+					}
+
+				}
+				else if($memory->status_id==3)
+				{
+					$memory_info=$this->getMemoryFullInfo($memory->id);
+					$response = ['memory' => $memory_info,'message'=>'success'];
+				}
+				else
+					$response = ['message' => 'Draft'];
+			}
+
 
 
 			return response($response);

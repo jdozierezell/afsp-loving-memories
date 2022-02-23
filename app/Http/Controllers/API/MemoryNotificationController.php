@@ -54,9 +54,14 @@ class MemoryNotificationController extends APIBaseController
 			$notify['btn_text']='View';
 			$notify['id']=$notification->id;
 			$notify['read']=$notification->read;
+			$notify['disable_button']=false;
 			if($notification->friend_memory_id)
 			{
 				$friend_memory=MemoryFriends::where('id',$notification->friend_memory_id)->first();
+			}
+			if($memory->status_id===2)
+			{
+				$notify['disable_button']=true;
 			}
 
 			switch ($notification->type_id)
@@ -84,10 +89,22 @@ class MemoryNotificationController extends APIBaseController
 				{
 					if(isset($friend_memory))
 					{
-						$notify['text']="<b> ".$friend_memory->name." </b> has submitted a memory for "."<b> ".$memory->name." </b>";
-						$notify['url']=$this->replaceURLPrams(config('frontendRoutes.review-friend-memory'),'access_token',$friend_memory->access_token);
+						if($friend_memory->verified===0)
+						{
+							$notify['text']="<b> ".$friend_memory->name." </b> has submitted a memory for "."<b> ".$memory->name." </b>";
+							$notify['url']=$this->replaceURLPrams(config('frontendRoutes.review-friend-memory'),'access_token',$friend_memory->access_token);
+							$notify['btn_text']='Review';
+
+						}
+						else
+						{
+							$notify['text']="<b> ".$friend_memory->name." </b> already reviewed for "."<b> ".$memory->name." </b>";
+							$notify['url']=$this->replaceURLPrams(config('frontendRoutes.review-friend-memory'),'access_token',$friend_memory->access_token);
+							$notify['disable_button']=true;
+						}
+
 					}
-					$notify['btn_text']='Review';
+
 					break;
 				}
 				case 5: //memory friend approved by owner

@@ -99,7 +99,10 @@ class Memory extends BaseModel
 
 	public function getCoverImageAttribute($val)
 	{
-		return $this->getPublicUrl($val);
+		if($val)
+			return $this->getPublicUrl($val);
+		else
+			return false;
 	}
 	public function getThumbnailAttribute($val)
 	{

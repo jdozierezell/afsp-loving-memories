@@ -27,7 +27,7 @@ class ResetPasswordAPIController extends Controller {
 		$validator = Validator::make($request->all(), [
 			'token' => ['required', 'max:255'],
 			'email' => ['required', 'email', 'max:255' ],
-			'password' => ['required', 'confirmed', 'min:8'],
+			'password' => 'required|string|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
 		]);
 
 		// Here we will attempt to reset the user's password. If it is successful we
