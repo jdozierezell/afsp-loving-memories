@@ -10,7 +10,7 @@
 	<title>AFSP CMS</title>
 
 
-	<link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+	<link href="{{ url(asset('css/styles.css')) }}" rel="stylesheet" />
 	<style>
 		.accordion-button::after {
 			background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' d='M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z' clip-rule='evenodd'/%3e%3c/svg%3e");
@@ -256,8 +256,8 @@
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
 		<!-- Navbar Brand-->
 		<a class="navbar-brand ps-3" href="/">AFSP</a>
-		@auth
-			<!-- Sidebar Toggle-->
+	@auth
+		<!-- Sidebar Toggle-->
 			<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
 			<!-- Navbar-->
 			<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
@@ -277,7 +277,7 @@
 					<div class="sb-sidenav-menu">
 						<div class="nav">
 
-							<a class="nav-link" href="{{url('admin/dashboard')}}">
+							<a class="nav-link" href="{{url('admin')}}">
 								<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
 								Dashboard
 							</a>
@@ -304,17 +304,17 @@
 
 		@endauth
 		<div id="layoutSidenav_content">
-				<main>
-					<div class="container-fluid py-4 px-4">
-						@isset($slot)
-							{{ $slot }}
-						@else
-							@include('flash-message')
-							@yield('content')
-						@endisset
-					</div>
-				</main>
-			</div>
+			<main>
+				<div class="container-fluid py-4 px-4">
+					@isset($slot)
+						{{ $slot }}
+					@else
+						@include('flash-message')
+						@yield('content')
+					@endisset
+				</div>
+			</main>
+		</div>
 	</div>
 	<script src="//cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 	<script
