@@ -65,7 +65,7 @@
 								</div>
 							</div>
 							<br>
-							<div class="row">
+							<!--<div class="row">
 								<div class="col text-center">
 									<form method="post" action="{{url('admin/memory/preview')}}" id="admin-preview-form">
 										<div class="col text-center">
@@ -80,7 +80,7 @@
 										<a  target="_blank" class="btn btn-primary" href="{{$preview_url}}">Preview Memory</a>
 									</div>--}}
 								</div>
-							</div>
+							</div>-->
 
 						</div>
 					</div>
@@ -204,7 +204,7 @@
 				</div>
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="headingOne">
-						<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#memory-visibility">Visibility </button>
+						<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#memory-visibility">Shared Memo </button>
 
 					</h2>
 					<div id="memory-visibility" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
