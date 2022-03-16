@@ -25,7 +25,7 @@ class DashboardController extends APIBaseController
 	 */
 	public function index()
 	{
-
+		//$this->saveImages();
 		/*$memory=Memory::where('access_token','2f4a41bb2e750169f6f9ff2e6922d9cd')->firstOrFail();
 		$thumbnail_path=$memory->getAttributes()['thumbnail'];
 		$cover_with_icon=str_replace("_thumbnail","_cover_with_submitted_icon",$thumbnail_path);
@@ -49,6 +49,34 @@ dd($return_path);*/
 		return view('admin/dashboard',compact('total','draft','submitted','approved','rejected'));
 	}
 
+	function saveImages()
+	{
+		$file = public_path('old-data-2.csv');
+
+		$customerArr = $this->csvToArray($file,':');
+
+		for ($i = 0; $i < count($customerArr); $i ++)
+		{
+			if(filter_var($customerArr[$i]['Quilt Image'], FILTER_VALIDATE_URL))
+			{
+
+				$file_url=$customerArr[$i]['Quilt Image'];
+				$folder   = "memories/images-old/" . $customerArr[$i]['ID']. "/";
+				if(!Storage::exists($folder))
+				{
+					$fileName = uniqid() . '.' . pathinfo($file_url, PATHINFO_EXTENSION);
+					$full_image = Image::make($file_url);
+					Storage::disk('local')->put($folder.$fileName, $full_image->stream()->__toString());
+				}
+
+
+
+
+			}
+
+
+		}
+	}
 
 	function importOldData()
 	{
@@ -155,9 +183,9 @@ dd($return_path);*/
 		/** @var Request $request */
 
 			$folder   = "memories/images/" . $memory_access_token . "/";
-			$this->createDir($folder);
+
 			$media    =
-			$time=time();
+			$time=uniqid();
 
 			$flag = true;
 			$try = 1;
@@ -179,6 +207,7 @@ dd($return_path);*/
 			$fileName = $time . '.' . pathinfo($file_url, PATHINFO_EXTENSION);
 			while ($flag && $try <= 3):
 				try {
+					$full_image = Image::make($file_url);
 					Storage::put($folder.$fileName, $full_image->stream()->__toString());
 					$flag = false;
 				} catch (\Exception $e) {

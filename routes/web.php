@@ -21,18 +21,18 @@ Route::get('/', function () {
 });
 
 //Route::get('image-upload', [ImageController::class, 'index' ])->name('image.index');
-Route::get('view-mailer', [MailerViewController::class, 'index' ])->name('view-mailer');
+//Route::get('view-mailer', [MailerViewController::class, 'index' ])->name('view-mailer');
 //Route::post('image-upload', [ImageController::class, 'upload' ])->name('image.upload');
 
-Route::get('/send-mail', function () {
+/*Route::get('/send-mail', function () {
 
 
 	dispatch(new App\Jobs\SendMailJob('SendEmailDemo',array('email'=>'rs.sureshkumar@yahoo.com')));
 
 	dd('send mail successfully !!');
 
-});
-Route::get('/mail', function () {
+});*/
+/*Route::get('/mail', function () {
 	foreach (new DirectoryIterator('../app/Mail') as $fileInfo)
 	{
 		if($fileInfo->isDot()) continue;
@@ -63,7 +63,7 @@ Route::get('/mail', function () {
 		return new $mail_path($details);
 	}
 
-});
+});*/
 
 
 Auth::routes(['register' => false]);

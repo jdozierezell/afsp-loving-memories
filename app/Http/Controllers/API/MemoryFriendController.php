@@ -196,7 +196,7 @@ class MemoryFriendController extends APIBaseController
 		if($request->has('image'))
 		{
 
-			$file=$folder.time() . '.jpeg';
+			$file=$folder.uniqid() . '.jpeg';
 			$avatar = Image::make($request->get('image'))->stream();
 			Storage::put($file, $avatar);
 

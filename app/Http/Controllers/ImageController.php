@@ -28,7 +28,7 @@ class ImageController extends Controller
 			'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
 		]);
 
-		$image_name = time().'.'.$request->image->extension();
+		$image_name = uniqid().'.'.$request->image->extension();
 
 		$path = Storage::disk('s3')->put('images', $request->image);
 		dump($path);

@@ -119,7 +119,7 @@ class MemoryCreateController extends APIBaseController
 			/*$fileName = time() . '.' . $favorite['image']->getClientO riginalExtension();
 			$favorite['image']->move($folder,$fileName);
 			$name=$favorites_names[$key]['name'];*/
-			$file=$folder.time() . '.jpeg';
+			$file=$folder.uniqid() . '.jpeg';
 			//Image::make(file_get_contents($favorite['image']))->save($file);
 			if (filter_var($favorite['image'], FILTER_VALIDATE_URL))
 			{

@@ -43,7 +43,7 @@ class APIBaseController extends Controller
 			$folder   = "memories/".$field."s/" . $request->get( 'memory_access_token' ) . "/";
 			$this->createDir($folder);
 			$media    = $request->file( $field );
-			$time=time();
+			$time=uniqid();
 			$thumbnail=$folder.'/'.$time.'_thumbnail.'.$media->extension();
 			/*$img = Image::make($media->path());
 			$img->resize(200, 200, function ($constraint) {
