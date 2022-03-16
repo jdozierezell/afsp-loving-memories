@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
 			$table->string('provider_id')->nullable();
 			$table->boolean('all_memory_reminder')->default(0);
 			$table->boolean('receive_afsp_resources')->default(0);
+			$table->boolean('is_imported')->default(0);
 			$table->integer('notification_count')->default(0);
 			$table->rememberToken();
 			$table->timestamps();

@@ -26,7 +26,8 @@ class User extends Authenticatable implements MustVerifyEmail
 		'email_verified_at',
 		'provider',
 		'provider_id',
-		'notification_count'
+		'notification_count',
+		'is_imported'
 	];
 
 	/**

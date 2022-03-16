@@ -57,7 +57,7 @@ class ApiAuthController extends APIBaseController
 				$response = ['token' => $token,'verified'=>$user_verified,'notification_count'=>$user->notification_count];
 				return response($response, 200);
 			} else {
-				$response = ["message" => "Specified account not exist"];
+				$response = ["message" => "Specified account not exist",'is_imported'=>$user->is_imported];
 				return response($response, 422);
 			}
 		}

@@ -13,6 +13,7 @@ class MemoryPhotos extends BaseModel
 	protected $fillable = [
 		'memory_id',
 		'image',
+		'cover'
 	];
 
 	protected $hidden = ['memory_id'];
