@@ -17,3 +17,5 @@ yarn-error.log
 /.vscode
 .idea
 /public/old-data-2.csv
+/public/import/
+/public/memories/

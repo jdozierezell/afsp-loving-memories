@@ -57,7 +57,7 @@ class ResetPasswordAPIController extends Controller {
 		$this->setUserPassword($user, $password);
 		//Here Larvel tries to set the "Remember me" cookie
 		//$user->setRememberToken(Str::random(60));
-
+		$user->is_imported=0;
 		$user->save();
 		event(new PasswordReset($user));
 		//By default, Laravel will attempt to automatically log in the user
