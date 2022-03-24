@@ -24,6 +24,14 @@ class MemoryList extends Component
 
 	public function render()
 	{
+		if(isset($_GET['status']))
+		{
+			if(is_numeric($_GET['status']))
+			{
+				$this->memory_status_selected=$_GET['status'];
+			}
+		}
+
 		$memory_status_selected= $this->memory_status_selected;
 		$search= $this->search;
 		$memories = Memory::with('status')

@@ -10,7 +10,7 @@
 			<div class="card bg-success text-white mb-4">
 				<div class="card-body">Approved <div class="float-end">{{$approved}}</div></div>
 				<div class="card-footer d-flex align-items-center justify-content-between">
-					<a class="small text-white stretched-link" href="#">View Details</a>
+					<a class="small text-white stretched-link" href="{{url('admin/memories?status=3')}}">View Details</a>
 					<div class="small text-white"><i class="fas fa-angle-right"></i></div>
 				</div>
 			</div>
@@ -19,16 +19,16 @@
 			<div class="card bg-warning text-white mb-4">
 				<div class="card-body">Pending <div class="float-end">{{$submitted}}</div></div>
 				<div class="card-footer d-flex align-items-center justify-content-between">
-					<a class="small text-white stretched-link" href="#">View Details</a>
+					<a class="small text-white stretched-link" href="{{url('admin/memories?status=2')}}">View Details</a>
 					<div class="small text-white"><i class="fas fa-angle-right"></i></div>
 				</div>
 			</div>
 		</div>
 		<div class="col-xl-3 col-md-6">
 			<div class="card bg-danger text-white mb-4 ">
-				<div class="card-body">Rejected <div class="float-end">{{$rejected}}</div></div>
+				<div class="card-body">Declined <div class="float-end">{{$rejected}}</div></div>
 				<div class="card-footer d-flex align-items-center justify-content-between">
-					<a class="small text-white stretched-link" href="#">View Details</a>
+					<a class="small text-white stretched-link" href="{{url('admin/memories?status=4')}}">View Details</a>
 					<div class="small text-white"><i class="fas fa-angle-right"></i></div>
 				</div>
 			</div>
@@ -37,7 +37,7 @@
 			<div class="card bg-info text-white mb-4 ">
 				<div class="card-body">Draft <div class="float-end">{{$draft}}</div></div>
 				<div class="card-footer d-flex align-items-center justify-content-between">
-					<a class="small text-white stretched-link" href="#">View Details</a>
+					<a class="small text-white stretched-link" href="{{url('admin/memories?status=1')}}">View Details</a>
 					<div class="small text-white"><i class="fas fa-angle-right"></i></div>
 				</div>
 			</div>
