@@ -45,7 +45,7 @@ class DashboardController extends APIBaseController
 		die();*/
 
 
-		$this->reImportOldData();
+		//$this->reImportOldData();
 		/*$memory=Memory::where('access_token','2f4a41bb2e750169f6f9ff2e6922d9cd')->firstOrFail();
 		$thumbnail_path=$memory->getAttributes()['thumbnail'];
 		$cover_with_icon=str_replace("_thumbnail","_cover_with_submitted_icon",$thumbnail_path);
