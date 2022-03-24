@@ -27,6 +27,24 @@ class DashboardController extends APIBaseController
 	 */
 	public function index()
 	{
+		/*$memories=Memory::where('id','>=','7189')->get();
+
+		$html="<table cellpadding='5' cellspacing='5' width='100%'>";
+		foreach($memories as $memory)
+		{
+			$html .="<tr>
+						<td>".$memory->id."</td>
+						<td><img src='".$memory->thumbnail."' width='100'></td>
+					</tr>";
+
+		}
+
+		$html .="</table>";
+
+		echo $html;
+		die();*/
+
+
 		$this->reImportOldData();
 		/*$memory=Memory::where('access_token','2f4a41bb2e750169f6f9ff2e6922d9cd')->firstOrFail();
 		$thumbnail_path=$memory->getAttributes()['thumbnail'];
@@ -123,7 +141,7 @@ dd($return_path);*/
 					{
 						$memory_exist=false;
 						$memory=Memory::create(['name'=>$customerArr[$i]['Title'],'user_id'=>$user->id,'status_id'=>3,
-									'description'=>$customerArr[$i]['Quilt Description'],'access_token'=>$this->generateAccessToken()]);
+									'description'=>  strip_tags($customerArr[$i]['Quilt Description']) ,'access_token'=>$this->generateAccessToken()]);
 					}
 				}
 				if($memory_exist===false)
@@ -193,13 +211,12 @@ dd($return_path);*/
 		return $data;
 	}
 
-	function    uploadMediaFile($memory_access_token,$file_url)
+	function    uploadMediaFile($memory_access_token,$file_url,$org_file_url)
 	{
 		/** @var Request $request */
 
-			$folder   = "memories/images/" . $memory_access_token . "/";
 
-			$media    =
+			$folder   = "memories/images/" . $memory_access_token;
 			$time=uniqid();
 
 			$flag = true;
@@ -208,6 +225,7 @@ dd($return_path);*/
 			while ($flag && $try <= 3):
 				try {
 					$full_image = Image::make($file_url);
+
 					$imgThumb =$full_image->resize(200, 200)->stream();
 					Storage::put($thumbnail, $imgThumb->__toString() );
 					$flag = false;
@@ -217,13 +235,16 @@ dd($return_path);*/
 				$try++;
 			endwhile;
 
+
 			$flag = true;
 			$try = 1;
-			$fileName = $time . '.' . pathinfo($file_url, PATHINFO_EXTENSION);
+			$fileName = $time . '.' . pathinfo($org_file_url, PATHINFO_EXTENSION);
+
 			while ($flag && $try <= 3):
 				try {
-					$full_image = Image::make($file_url);
-					Storage::put($folder.$fileName, $full_image->stream()->__toString());
+
+					$full_image = Image::make($org_file_url);
+					Storage::put($folder.'/'.$fileName, $full_image->stream()->__toString());
 					$flag = false;
 				} catch (\Exception $e) {
 					//not throwing  error when exception occurs
@@ -232,15 +253,17 @@ dd($return_path);*/
 			endwhile;
 
 
-
-
-			return $folder . $fileName;
+			return array('thumbnail'=>$thumbnail,'cover'=>$folder.'/'.$fileName);
 
 
 	}
 
 	function reImportOldData()
 	{
+
+
+
+
 		$file = public_path('old-data-2.csv');
 
 		$customerArr = $this->csvToArray($file,':');
@@ -256,16 +279,22 @@ $i=0;
 
 			if($file->getFileName()!="." &&  $file->getFileName()!="..")
 			{
+				$path_data=explode("\\",$file->getPath());
 
-				$edited_file=public_path("memories/images-edited/".$file->getFileName());
-				if(!file_exists($edited_file))
+				$file_info=pathinfo($file->getFileName());
+				$img_file_name=$file_info['filename'].".jpg";
+
+				$edited_file=public_path("memories/images-edited/".$img_file_name);
+				$original_file=public_path("memories/images-old/".$path_data[1]."/".$file->getFileName());
+				if(!file_exists($edited_file) &&  !file_exists($original_file))
 				{
-					file_put_contents($log_file, "$i - ".$file->getPathName().PHP_EOL , FILE_APPEND | LOCK_EX);
+					file_put_contents($log_file, "$i - ".$file->getPathName()."-".$original_file.PHP_EOL , FILE_APPEND | LOCK_EX);
 				}
 				else
 				{
+
 					//$customerArr[]
-					$path_data=explode("\\",$file->getPath());
+
 
 					if(!in_array($path_data[1],$runned_ids))
 					{
@@ -273,49 +302,52 @@ $i=0;
 						$import_data=$customerArr[$path_data[1]];
 						$memory_exist=true;
 						$user = User::where('email',$import_data['Your Email Address'])->first();
-						if( $import_data['Title'] )
+						$memory=Memory::where(['name'=>$import_data['Title'],'user_id'=>$user->id])->first();
+						if(!$memory)
 						{
-							$memory = Memory::where(['name'=>$import_data['Title'],'user_id'=>$user->id])->first();
-							if(!$memory)
+							if( $import_data['Title'] )
 							{
-								$memory_exist=false;
-								$memory=Memory::create(['name'=>$import_data['Title'],'user_id'=>$user->id,'status_id'=>3,
-								                        'description'=>$import_data['Quilt Description'],'access_token'=>$this->generateAccessToken()]);
+
+								if(!$memory)
+								{
+									$memory_exist=false;
+									$memory=Memory::create(['name'=>$import_data['Title'],'user_id'=>$user->id,'status_id'=>3,
+									                        'description'=>$import_data['Quilt Description'],'access_token'=>$this->generateAccessToken()]);
+								}
+							}
+							if($memory_exist===false)
+							{
+								//$org_file="memories/images-old/".$file->getFileName();
+
+								$uploaded_file=$this->uploadMediaFile($memory->access_token,$edited_file,$original_file);
+
+								MemoryPhotos::create(['memory_id'=>$memory->id,'image'=>$uploaded_file['cover'],'cover'=>1]);
+
+
+
+								$memory->cover_image =$uploaded_file['cover'];
+								$memory->thumbnail =$uploaded_file['thumbnail'];
+								$memory->visible_type='public';
+								$memory->save();
+
+								$memory=Memory::where(['name'=>$import_data['Title'],'user_id'=>$user->id])->first();
+
+
+
 							}
 						}
-						if($memory_exist===false)
-						{
 
 
-							$uploaded_file=$this->uploadMediaFile($memory->access_token,$edited_file);
-
-							MemoryPhotos::create(['memory_id'=>$memory->id,'image'=>$uploaded_file,'cover'=>1]);
-
-
-							$parse_url=parse_url($uploaded_file);
-							$local_image_path= ltrim($parse_url['path'], '/');
-							$path_info=pathinfo($local_image_path);
-							$thumbnail=$path_info['dirname']."/".$path_info['filename']."_thumbnail.".$path_info['extension'];
-							$memory->cover_image =$local_image_path;
-							$memory->thumbnail =$thumbnail;
-							$memory->visible_type='public';
-							$memory->save();
-
-
-						}
 
 
 					}
 				}
 
 
-				$i++;
-			/*	if($i>10)
-				{
-					dd(1);
-				}*/
+
 
 			}
+			$i++;
 
 
 		}
