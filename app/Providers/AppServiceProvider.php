@@ -27,13 +27,14 @@ class AppServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		Schema::defaultStringLength(191);
-		if ($this->app->isLocal()) {
+		/*if ($this->app->isLocal()) {
 			$this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
 		}
 		else
 		{
 			URL::forceScheme('https');
-		}
+		}*/
+		URL::forceScheme('https');
 
 
 		Paginator::useBootstrap();
