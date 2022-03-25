@@ -39,7 +39,7 @@ class MailVerificationNotification extends VerifyEmailBase
 		//URL::forceRootUrl(config('app.APP_FRONT_URL'));
 		$url=$this->verificationUrl($notifiable);
 		$path=pathinfo($url);
-		$new_url=config('app.APP_FRONT_URL').config('frontendRoutes.verify-account')."/".$path['basename'];
+		$new_url=config('app.APP_FRONT_URL').config('frontendRoutes.verify-account');
 
 		return (new MailMessage)->view('mail.user.verify-account', ['url' => $new_url,'log_mail_file'=> md5(uniqid(microtime())).".html"])->subject('Verify your account');
 	}
