@@ -106,7 +106,14 @@ class MemoryMediaController extends APIBaseController
 		$parse_url=parse_url($image);
 		$local_image_path= ltrim($parse_url['path'], '/');
 		$path_info=pathinfo($local_image_path);
-		$thumbnail=$path_info['dirname']."/".$path_info['filename']."_thumbnail.".$path_info['extension'];
+		if($path_info['extension']==="jpg"||$path_info['extension']==="jpeg")
+		{
+			$new_extension = "jpg";
+			if ( $path_info['extension'] === "jpeg" ) {
+				$new_extension = "jpg";
+			}
+		}
+		$thumbnail=$path_info['dirname']."/".$path_info['filename']."_thumbnail.".$new_extension;
 
 		//remove photos from list
 		MemoryPhotos::where(['memory_id'=>$memory->id])->update(['cover'=>0]);//reset all 0
