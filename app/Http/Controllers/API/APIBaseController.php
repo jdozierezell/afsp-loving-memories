@@ -219,6 +219,24 @@ class APIBaseController extends Controller
 		{
 				return $return_path;
 		}
+		if(!Storage::exists($file_path))
+		{
+			$path_info=pathinfo($file_path);
+			//check its jpg or jpeg issue
+			if($path_info['extension']==="jpg"||$path_info['extension']==="jpeg")
+			{
+				$new_extension="jpg";
+				if($path_info['extension']==="jpg")
+				{
+					$new_extension="jpeg";
+				}
+				if(!Storage::exists($path_info['filename'] . '.' . $new_extension;))
+				{
+					return "";
+				}
+			}
+
+		}
 
 
 
