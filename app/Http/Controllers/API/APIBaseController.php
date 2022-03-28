@@ -230,7 +230,7 @@ class APIBaseController extends Controller
 				{
 					$new_extension="jpeg";
 				}
-				if(!Storage::exists($path_info['filename'] . '.' . $new_extension;))
+				if(!Storage::exists($path_info['filename'] . '.' . $new_extension))
 				{
 					return "";
 				}
