@@ -44,7 +44,13 @@ class APIBaseController extends Controller
 			$this->createDir($folder);
 			$media    = $request->file( $field );
 			$time=uniqid();
-			$thumbnail=$folder.'/'.$time.'_thumbnail.'.$media->extension();
+			$new_extension = $media->extension();
+			if($new_extension==="jpeg")
+			{
+				$new_extension = "jpg";
+
+			}
+			$thumbnail=$folder.'/'.$time.'_thumbnail.'.$new_extension;
 			/*$img = Image::make($media->path());
 			$img->resize(200, 200, function ($constraint) {
 				$constraint->aspectRatio();
@@ -57,7 +63,7 @@ class APIBaseController extends Controller
 
 			/** @var \Illuminate\Http\UploadedFile $media */
 
-			$fileName = $time . '.' . $media->getClientOriginalExtension();
+			$fileName = $time . '.' . $new_extension;
 			/** @var \Illuminate\Http\UploadedFile $file */
 			//$file = $request->file($field);
 			//$file->move($folder, $fileName);
