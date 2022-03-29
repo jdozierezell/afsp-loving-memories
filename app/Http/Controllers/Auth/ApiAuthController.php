@@ -171,7 +171,6 @@ class ApiAuthController extends APIBaseController
 			//send mail
 
 			$memory_detail['email']=$v_data['email'];
-			$memory_detail['name']=$v_data['name'];
 			$memory_detail['url']=config('app.APP_FRONT_URL').config('frontendRoutes.reset-password');
 			dispatch(new \App\Jobs\SendMailJob('PasswordUpdatedMail',$memory_detail));
 
