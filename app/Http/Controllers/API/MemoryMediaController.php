@@ -106,6 +106,7 @@ class MemoryMediaController extends APIBaseController
 		$parse_url=parse_url($image);
 		$local_image_path= ltrim($parse_url['path'], '/');
 		$path_info=pathinfo($local_image_path);
+		$new_extension = $path_info['extension'];
 		if($path_info['extension']==="jpg"||$path_info['extension']==="jpeg")
 		{
 			$new_extension = "jpg";
