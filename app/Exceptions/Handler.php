@@ -75,7 +75,7 @@ class Handler extends ExceptionHandler
 			}
 			else
 			{
-				$error="";
+				$error=$e->getMessage();
 			}
 			if ($e instanceof ModelNotFoundException) {
 				$model = strtolower(class_basename($e->getModel()));
