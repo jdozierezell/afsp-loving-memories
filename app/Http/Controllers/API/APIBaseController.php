@@ -48,7 +48,6 @@ class APIBaseController extends Controller
 			if($new_extension==="jpeg")
 			{
 				$new_extension = "jpg";
-
 			}
 			$thumbnail=$folder.'/'.$time.'_thumbnail.'.$new_extension;
 			/*$img = Image::make($media->path());
