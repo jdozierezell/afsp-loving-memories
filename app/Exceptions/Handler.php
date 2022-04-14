@@ -67,7 +67,7 @@ class Handler extends ExceptionHandler
 
 	function render( $request, Throwable $e )
 	{
-
+		dump($e->getMessage());
 		if( $request->is('api/*')){
 			if(config('app.debug')==true)
 			{
