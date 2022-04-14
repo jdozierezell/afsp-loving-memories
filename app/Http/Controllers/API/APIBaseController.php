@@ -186,7 +186,7 @@ class APIBaseController extends Controller
 
 		// Step 2 - Create a blank image.
 		$img2 = imagecreatetruecolor($x, $y);
-		$bg = imagecolorallocate($img2, 255, 255, 255); // white background
+		$bg = imagecolorallocate($img2, 255, 255, 255) // white background
 		imagefill($img2, 0, 0, $bg);
 		// Step 3 - Create the ellipse OR circle mask.
 		$e = imagecolorallocate($img2, 0, 0, 0); // black mask color
