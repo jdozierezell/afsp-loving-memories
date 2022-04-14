@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\API\APIBaseController;
 use App\Http\Controllers\Controller;
 use App\Mail\SendEmailDemo;
+use App\Models\Admin;
 use App\Models\Memory;
 use App\Models\MemoryPhotos;
 use App\Models\User;
@@ -27,6 +28,14 @@ class DashboardController extends APIBaseController
 	 */
 	public function index()
 	{
+
+		/*$admin = new Admin();
+		$admin->password = Hash::make('SGph5hdFQW');
+		$admin->email = 'JDozier-Ezell@afsp.org';
+		$admin->name = 'Jonathan Dozier-Ezell';
+		$admin->save();*/
+
+
 		/*$memories=Memory::where('id','>=','7189')->get();
 
 		$html="<table cellpadding='5' cellspacing='5' width='100%'>";

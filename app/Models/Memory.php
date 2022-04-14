@@ -47,7 +47,7 @@ class Memory extends BaseModel
 	}
 	public function photos()
 	{
-		return $this->hasMany(MemoryPhotos::class)->select(['image','memory_id'])->orderBy('id', 'desc');
+		return $this->hasMany(MemoryPhotos::class)->select(['image','memory_id'])->orderBy('cover', 'desc')->orderBy('id', 'desc');
 	}
 
 	public function videos()
