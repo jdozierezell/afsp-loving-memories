@@ -199,7 +199,7 @@
 						<!--spacer End-->
 
 						<td valign="middle" style="font-family: 'Helvetica', Arial, sans-serif; text-align: center;  font-size: 17px; line-height: 24px; color: #262626; font-weight: 300" height="80">
-							If you are experiences a crisis <a href="" target="_blank" style="color:#3D72FB; font-size: 17px; line-height: 24px;">Please get immediate help</a>
+							If you are experiencing a crisis please call the National Suicide Prevention Lifeline at 1-800-273-TALK or text TALK to 741-741.
 						</td>
 
 						<!--spacer Start-->

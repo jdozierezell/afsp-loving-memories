@@ -1,57 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="format-detection" content="telephone=no" />
-	<meta name="format-detection" content="date=no">
-	<meta name="format-detection" content="address=no">
-	<meta name="color-scheme" content="light dark">
-	<meta name="supported-color-schemes" content="light dark">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>AFSP</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;700&display=swap" rel="stylesheet">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="date=no" />
+		<meta name="format-detection" content="address=no" />
+		<meta name="color-scheme" content="light dark" />
+		<meta name="supported-color-schemes" content="light dark" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+		/>
+		<title>AFSP</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;700&display=swap"
+			rel="stylesheet"
+		/>
 
-	<!--[if mso]>
-	<style type="text/css">
-		/* mso adjustment for tamed superscripts */
-		sup{font-size: 100% !important;}
-		td.tdReset {width:660px !important; padding:0px 10px 0px 10px !important;}
-		table.container{width:660px !important;}
-		td.outlookTD {padding:10px 10px 10px 0px !important;}
-	</style>
-	<![endif]-->
+		<!--[if mso]>
+			<style type="text/css">
+				/* mso adjustment for tamed superscripts */
+				sup {
+					font-size: 100% !important;
+				}
+				td.tdReset {
+					width: 660px !important;
+					padding: 0px 10px 0px 10px !important;
+				}
+				table.container {
+					width: 660px !important;
+				}
+				td.outlookTD {
+					padding: 10px 10px 10px 0px !important;
+				}
+			</style>
+		<![endif]-->
 
-	<!-- Start Mailer Content style -->
-	<style type="text/css">
-		/* What it does: Remove spaces around the email design added by some email clients. */
-		/* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
-		html,
-		body {
-			margin: 0 auto !important;
-			padding: 0 !important;
-			height: 100% !important;
-			width: 100% !important;
-		}
-		/* What it does: Stops email clients resizing small text. */
-		* {
-			-ms-text-size-adjust: 100%;
-			-webkit-text-size-adjust: 100%;
-		}
-		/* What is does: Centers email on Android 4.4 */
-		div[style*="margin: 16px 0"] {
-			margin:0 !important;
-		}
-		/* What it does: Stops Outlook from adding extra spacing to tables. */
-		table,
-		td {
-			mso-table-lspace: 0pt !important;
-			mso-table-rspace: 0pt !important;
-		}
-		/* What it does: Fixes webkit padding issue. Fix for Yahoo mail table alignment bug. Applies table-layout to the first 2 tables then removes for anything nested deeper. */
-		/* Note:- This is interfearing with supplied layout inheritance */
-		/*table {
+		<!-- Start Mailer Content style -->
+		<style type="text/css">
+			/* What it does: Remove spaces around the email design added by some email clients. */
+			/* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+			html,
+			body {
+				margin: 0 auto !important;
+				padding: 0 !important;
+				height: 100% !important;
+				width: 100% !important;
+			}
+			/* What it does: Stops email clients resizing small text. */
+			* {
+				-ms-text-size-adjust: 100%;
+				-webkit-text-size-adjust: 100%;
+			}
+			/* What is does: Centers email on Android 4.4 */
+			div[style*="margin: 16px 0"] {
+				margin: 0 !important;
+			}
+			/* What it does: Stops Outlook from adding extra spacing to tables. */
+			table,
+			td {
+				mso-table-lspace: 0pt !important;
+				mso-table-rspace: 0pt !important;
+			}
+			/* What it does: Fixes webkit padding issue. Fix for Yahoo mail table alignment bug. Applies table-layout to the first 2 tables then removes for anything nested deeper. */
+			/* Note:- This is interfearing with supplied layout inheritance */
+			/*table {
 		  border-spacing: 0 !important;
 		  border-collapse: collapse !important;
 		  table-layout: fixed !important;
@@ -61,553 +76,1199 @@
 		  table-layout: auto;
 		}*/
 
-
-		/* What it does: Uses a better rendering method when resizing images in IE. */
-		img {
-			-ms-interpolation-mode:bicubic;
-			display: block;
-		}
-		/* What it does: A work-around for iOS meddling in triggered links. */
-		*[x-apple-data-detectors] {
-			color: inherit !important;
-			text-decoration: none !important;
-		}
-		/* What it does: A work-around for Gmail meddling in triggered links. */
-		.x-gmail-data-detectors,
-		.x-gmail-data-detectors *,
-		.aBn {
-			border-bottom: 0 !important;
-			cursor: default !important;
-		}
-		/* What it does: Prevents Gmail from displaying an download button on large, non-linked images. */
-		.a6S {
-			display: none !important;
-			opacity: 0.01 !important;
-		}
-		/* If the above doesn't work, add a .g-img class to any image in question. */
-		img.g-img + div {
-			display:none !important;
-		}
-		/* What it does: Prevents underlining the button text in Windows 10 */
-		.button-link {
-			text-decoration: none !important;
-		}
-		/* responsive progression */
-		/* fonts */
-		/* Media Queries */
-		@media  screen and (max-width: 640px) {
-			BODY[yahoo] .device-width {/* What it does: Forces elements to fluid width */
-				width: 100% !important;
+			/* What it does: Uses a better rendering method when resizing images in IE. */
+			img {
+				-ms-interpolation-mode: bicubic;
+				display: block;
 			}
-			.dual-coli {
-				width: auto !important;
+			/* What it does: A work-around for iOS meddling in triggered links. */
+			*[x-apple-data-detectors] {
+				color: inherit !important;
+				text-decoration: none !important;
 			}
-			.hidden-image {
-				display:none !important
+			/* What it does: A work-around for Gmail meddling in triggered links. */
+			.x-gmail-data-detectors,
+			.x-gmail-data-detectors *,
+			.aBn {
+				border-bottom: 0 !important;
+				cursor: default !important;
 			}
-			.title-mobi {
-				max-width:70% !important;
+			/* What it does: Prevents Gmail from displaying an download button on large, non-linked images. */
+			.a6S {
+				display: none !important;
+				opacity: 0.01 !important;
 			}
-			.centered-text {
-				width: 100% !important;
-				padding:0 12% !important;
+			/* If the above doesn't work, add a .g-img class to any image in question. */
+			img.g-img + div {
+				display: none !important;
 			}
-			.column {margin-right:0}
-			.size-1,.size-3 {font-size: 24px !important;}
-			.size-2 {font-size: 20px !important;}
-		}
-		@media  screen and (max-width: 480px) {
-			.hidden-device {display: none !important;}
-			.size-1,.size-3 {font-size: 20px !important;}
-			.size-2 {font-size: 18px !important;}
-		}
-		@media  screen and (max-width: 600px) {
-			.column.tri-coli{
-				width: 150px!important;
+			/* What it does: Prevents underlining the button text in Windows 10 */
+			.button-link {
+				text-decoration: none !important;
 			}
-			.hide-mobile{
-				display: none!important;
+			/* responsive progression */
+			/* fonts */
+			/* Media Queries */
+			@media screen and (max-width: 640px) {
+				BODY[yahoo] .device-width {
+					/* What it does: Forces elements to fluid width */
+					width: 100% !important;
+				}
+				.dual-coli {
+					width: auto !important;
+				}
+				.hidden-image {
+					display: none !important;
+				}
+				.title-mobi {
+					max-width: 70% !important;
+				}
+				.centered-text {
+					width: 100% !important;
+					padding: 0 12% !important;
+				}
+				.column {
+					margin-right: 0;
+				}
+				.size-1,
+				.size-3 {
+					font-size: 24px !important;
+				}
+				.size-2 {
+					font-size: 20px !important;
+				}
 			}
-		}
-		@media  screen and (max-width: 320px) {
-			.size-1,.size-3 {font-size: 18px !important;}
-			.size-2 {font-size: 16px !important;}
-		}
-		@media (prefers-color-scheme: dark) {
-			/*td, td span.blue {
+			@media screen and (max-width: 480px) {
+				.hidden-device {
+					display: none !important;
+				}
+				.size-1,
+				.size-3 {
+					font-size: 20px !important;
+				}
+				.size-2 {
+					font-size: 18px !important;
+				}
+			}
+			@media screen and (max-width: 600px) {
+				.column.tri-coli {
+					width: 150px !important;
+				}
+				.hide-mobile {
+					display: none !important;
+				}
+			}
+			@media screen and (max-width: 320px) {
+				.size-1,
+				.size-3 {
+					font-size: 18px !important;
+				}
+				.size-2 {
+					font-size: 16px !important;
+				}
+			}
+			@media (prefers-color-scheme: dark) {
+				/*td, td span.blue {
 				color: #ffffff !important;
 			}*/
 
-			td span.title-mobi  {
-
+				td span.title-mobi {
+				}
+				body {
+				}
+				table,
+				td {
+					/*background:#000000 !important;*/
+				}
+				.step-links,
+				.step-links table,
+				.step-links td,
+				.step-links div {
+					/*background-color:#ffffff !important;*/
+					/*background:#ffffff !important;*/
+					/*color:#000000 !important;*/
+				}
 			}
-			body{
+		</style>
+		<!-- End Mailer Content style -->
+	</head>
 
-			}
-			table,td {
-				/*background:#000000 !important;*/
-			}
-			.step-links, .step-links table, .step-links td, .step-links div {
-				/*background-color:#ffffff !important;*/
-				/*background:#ffffff !important;*/
-				/*color:#000000 !important;*/
-			}
-		}
-	</style>
-	<!-- End Mailer Content style -->
-</head>
+	<body
+		bgcolor="#ffffff"
+		link="#295AA6"
+		vlink="#295AA6"
+		alink="#295AA6"
+		style="background-color: #ffffff; margin: 0; padding: 0"
+		yahoo="fix"
+	>
+		<div id="wrapper" style="background-color: #ffffff">
+			<table
+				width="640"
+				valign="top"
+				align="center"
+				cellpadding="0"
+				cellspacing="0"
+				border="0"
+				bgcolor="#ffffff"
+				class="device-width"
+				style="background-color: #ffffff; border-top: 3px solid #396dff"
+			>
+				<!--header logo Start-->
+				<tr>
+					<td valign="top" height="60"></td>
+				</tr>
+				<tr>
+					<td valign="top" align="center">
+						<img
+							src="http://127.0.0.1:8000/images/mailer/header-logo.png"
+							width="179"
+							height="55"
+							alt=""
+							style="
+								display: block;
+								margin: 0;
+								padding: 0;
+								max-width: 179px;
+								width: 100%;
+								height: auto;
+								vertical-align: top;
+								border: 0;
+								outline: none;
+								background-color: transparent;
+							"
+							class="g-img"
+						/>
+					</td>
+				</tr>
+				<tr>
+					<td valign="top" height="40"></td>
+				</tr>
+				<!--header logo end-->
 
-<body bgcolor="#ffffff" link="#295AA6" vlink="#295AA6" alink="#295AA6" style="background-color: #ffffff; margin: 0; padding: 0" yahoo="fix">
-<div id="wrapper" style="background-color: #ffffff;">
+				<tr>
+					<td colspan="3">
+						<table
+							width="640"
+							valign="top"
+							align="center"
+							cellpadding="0"
+							cellspacing="0"
+							border="0"
+							style="padding: 0 8%; max-width: 640px; width: 100%"
+							class="device-width"
+						>
+							<tr>
+								<td
+									valign="top"
+									style="
+										font-family: 'Helvetica', Arial,
+											sans-serif;
+										text-align: left;
+										font-size: 24px;
+										line-height: 34px;
+										color: #262626;
+										font-weight: 600;
+										text-align: center;
+									"
+								>
+									<b>Please verify your account</b>
+									<br />
+								</td>
+							</tr>
 
-	<table width="640" valign="top" align="center" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" class=" device-width" style="background-color: #ffffff; border-top:3px solid #396DFF">
-
-		<!--header logo Start-->
-		<tr>
-			<td valign="top" height="60"></td>
-		</tr>
-		<tr>
-			<td valign="top" align="center">
-				<img src="http://127.0.0.1:8000/images/mailer/header-logo.png" width="179" height="55" alt="" style="display: block; margin: 0; padding: 0; max-width: 179px; width: 100%; height: auto; vertical-align: top; border: 0; outline: none; background-color: transparent;" class=" g-img" />
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" height="40" ></td>
-		</tr>
-		<!--header logo end-->
-
-
-		<tr>
-			<td colspan="3">
-					<table width="640" valign="top" align="center" cellpadding="0" cellspacing="0" border="0" style="padding:0 8%;max-width: 640px; width: 100%;" class=" device-width">
-		<tr>
-			<td valign="top" style="font-family: 'Helvetica', Arial, sans-serif; text-align: left; font-size: 24px; line-height: 34px; color: #262626; font-weight: 600;text-align: center">
-				<b>Please verify your account</b>
-				<br>
-			</td>
-		</tr>
-
-		<tr>
-			<td valign="top" style="font-family: 'Helvetica', Arial, sans-serif; text-align: center;  font-size: 17px; line-height: 30px; color: #707070; font-weight: 300">
-				<br>
-				Thank you for creating an account with Loving Memories by the American Foundation for Suicide Prevention. We hope you will find your experience with Loving Memories to be rewarding and healing. Please verify your email by clicking on the link below.
-				<br><br>
-			</td>
-		</tr>
-		<tr>
-			<td valign="top" align="center">
-				<table width="200" border="0" align="center" cellspacing="0"
-				       cellpadding="0"
-				       style="margin: 0; padding: 0; border: 0; width: 200px; max-width:200px">
-					<tr>
-						<td valign="top" align="right" bgcolor="#FFFFFF">
-							<img src="http://127.0.0.1:8000/images/mailer/btn-left.png" alt=""
-							     width="30" height="50"
-							     style="margin: 0; padding: 0; display: block;max-width: 30px; width: 30px; height: 50px; vertical-align: top; border: 0;"
-							     class="g-img" />
-						</td>
-						<td valign="top" align="center" bgcolor="#396DFF"
-						    width="180" height="50"
-						    style="width:100%; max-width:180px; height:50px;">
-
-							<div>
-							<!--[if mso]>
+							<tr>
+								<td
+									valign="top"
+									style="
+										font-family: 'Helvetica', Arial,
+											sans-serif;
+										text-align: center;
+										font-size: 17px;
+										line-height: 30px;
+										color: #707070;
+										font-weight: 300;
+									"
+								>
+									<br />
+									Thank you for creating an account with
+									Loving Memories by the American Foundation
+									for Suicide Prevention. We hope you will
+									find your experience with Loving Memories to
+									be rewarding and healing. Please verify your
+									email by clicking on the link below.
+									<br /><br />
+								</td>
+							</tr>
+							<tr>
+								<td valign="top" align="center">
+									<table
+										width="200"
+										border="0"
+										align="center"
+										cellspacing="0"
+										cellpadding="0"
+										style="
+											margin: 0;
+											padding: 0;
+											border: 0;
+											width: 200px;
+											max-width: 200px;
+										"
+									>
+										<tr>
+											<td
+												valign="top"
+												align="right"
+												bgcolor="#FFFFFF"
+											>
+												<img
+													src="http://127.0.0.1:8000/images/mailer/btn-left.png"
+													alt=""
+													width="30"
+													height="50"
+													style="
+														margin: 0;
+														padding: 0;
+														display: block;
+														max-width: 30px;
+														width: 30px;
+														height: 50px;
+														vertical-align: top;
+														border: 0;
+													"
+													class="g-img"
+												/>
+											</td>
+											<td
+												valign="top"
+												align="center"
+												bgcolor="#396DFF"
+												width="180"
+												height="50"
+												style="
+													width: 100%;
+													max-width: 180px;
+													height: 50px;
+												"
+											>
+												<div>
+													<!--[if mso]>
 								<v:rect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://affsp-frontend.ogilvylab.co.za//account/verify?expires=1638385487&amp;hash=d9ee3dc1e13d6293b4fc56710eb69b98f17bb451&amp;id=11&amp;signature=b2333290472b3bcbb08fdb76d10e0be2ca98712f6f87beeea9762e4e2e1d5937" style="height:50px;v-text-anchor:middle;width:180px;" stroke="f" fillcolor="#396DFF">
 									<w:anchorlock/>
 									<center>
 								<![endif]-->
-								<a href="https://affsp-frontend.ogilvylab.co.za//account/verify?expires=1638385487&amp;hash=d9ee3dc1e13d6293b4fc56710eb69b98f17bb451&amp;id=11&amp;signature=b2333290472b3bcbb08fdb76d10e0be2ca98712f6f87beeea9762e4e2e1d5937"
-								   style="background-color:#396DFF;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:14px;font-weight:bold;line-height:50px;text-align:center;text-decoration:none;width:180px;-webkit-text-size-adjust:none;">Verify Your Account</a>
-								<!--[if mso]>
+													<a
+														href="https://affsp-frontend.ogilvylab.co.za//account/verify?expires=1638385487&amp;hash=d9ee3dc1e13d6293b4fc56710eb69b98f17bb451&amp;id=11&amp;signature=b2333290472b3bcbb08fdb76d10e0be2ca98712f6f87beeea9762e4e2e1d5937"
+														style="
+															background-color: #396dff;
+															color: #ffffff;
+															display: inline-block;
+															font-family: sans-serif;
+															font-size: 14px;
+															font-weight: bold;
+															line-height: 50px;
+															text-align: center;
+															text-decoration: none;
+															width: 180px;
+															-webkit-text-size-adjust: none;
+														"
+														>Verify Your Account</a
+													>
+													<!--[if mso]>
 								</center>
 								</v:rect>
 								<![endif]-->
-							</div>
+												</div>
+											</td>
+											<td
+												valign="top"
+												align="left"
+												bgcolor="#FFFFFF"
+											>
+												<img
+													src="http://127.0.0.1:8000/images/mailer/btn-right.png"
+													alt=""
+													width="30"
+													height="50"
+													style="
+														margin: 0;
+														padding: 0;
+														display: block;
+														max-width: 30px;
+														width: 30px;
+														height: 50px;
+														vertical-align: top;
+														border: 0;
+													"
+													class="g-img"
+												/>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
 
-						</td>
-						<td valign="top" align="left" bgcolor="#FFFFFF">
-							<img src="http://127.0.0.1:8000/images/mailer/btn-right.png" alt=""
-							     width="30" height="50"
-							     style="margin: 0; padding: 0; display: block;max-width: 30px; width: 30px; height: 50px; vertical-align: top; border: 0;"
-							     class="g-img" />
-						</td>
-					</tr>
+							<tr>
+								<td
+									valign="top"
+									style="
+										font-family: 'Helvetica', Arial,
+											sans-serif;
+										text-align: left;
+										font-size: 17px;
+										line-height: 30px;
+										color: #707070;
+										font-weight: 300;
+									"
+								>
+									<br />
+									If you did not create an account with Loving
+									Memories, please let us know by emailing
+									<a
+										style="
+											font-family: 'Helvetica', Arial,
+												sans-serif;
+											text-align: center;
+											font-size: 15px;
+											line-height: 30px;
+											color: #3d72fb;
+										"
+										href="mailto:lovingmemories@afsp.org"
+										>lovingmemories@afsp.org</a
+									>. <br /><br />
+								</td>
+							</tr>
 
+							<tr>
+								<td
+									valign="top"
+									style="
+										font-family: 'Helvetica', Arial,
+											sans-serif;
+										text-align: left;
+										font-size: 17px;
+										line-height: 30px;
+										color: #707070;
+										font-weight: 300;
+									"
+								>
+									<br />
+									<b
+										>About the American Foundation for
+										Suicide Prevention</b
+									>
+									<br /><br />
+									The American Foundation for Suicide
+									Prevention is dedicated to saving lives and
+									bringing hope to those affected by suicide.
+									AFSP creates a culture that’s smart about
+									mental health through education and
+									community programs, develops suicide
+									prevention through research and advocacy,
+									and provides support for those affected by
+									suicide. Led by CEO Robert Gebbia and
+									headquartered in New York, AFSP has local
+									chapters in all 50 states with programs and
+									events nationwide. Learn more about AFSP in
+									its latest Annual Report, and join the
+									conversation on suicide prevention by
+									following AFSP on Facebook, Twitter,
+									Instagram, and YouTube.
+									<br /><br />
+									By creating a Loving Memories account, you
+									have agreed to receive our newsletter and
+									other occasional emails from AFSP. If you
+									would like to opt out of email
+									communications not related to your Loving
+									Memories account, you may unsubscribe here.
+									<br /><br />
+									Thank you and welcome to the AFSP family.
+									<br /><br />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
 
-				</table>
-			</td>
-		</tr>
+				<!-- cta notification box -->
+				<tr>
+					<td valign="top" height="40"></td>
+				</tr>
+				<tr>
+					<td valign="top">
+						<table
+							width="640"
+							valign="top"
+							align="center"
+							cellpadding="0"
+							cellspacing="0"
+							border="0"
+							style="
+								max-width: 640px;
+								width: 100%;
+								background: #eaeaea;
+							"
+							class="device-width"
+						>
+							<tr>
+								<!--spacer Start-->
+								<td valign="top" width="60"></td>
+								<!--spacer End-->
 
-		<tr>
-			<td valign="top" style="font-family: 'Helvetica', Arial, sans-serif; text-align: left;  font-size: 17px; line-height: 30px; color: #707070; font-weight: 300">
-				<br>
-				If you did not create an account with Loving Memories, please let us know by emailing <a style="font-family: 'Helvetica', Arial, sans-serif; text-align: center;  font-size: 15px; line-height: 30px; color: #3D72FB;" href="mailto:lovingmemories@afsp.org">lovingmemories@afsp.org</a>.
-				<br><br>
-			</td>
-		</tr>
+								<td
+									valign="middle"
+									style="
+										font-family: 'Helvetica', Arial,
+											sans-serif;
+										text-align: center;
+										font-size: 17px;
+										line-height: 24px;
+										color: #262626;
+										font-weight: 300;
+									"
+									height="80"
+								>
+									If you are experiencing a crisis please call
+									the National Suicide Prevention Lifeline at
+									1-800-273-TALK or text TALK to 741-741.
+								</td>
 
-		<tr>
-			<td valign="top" style="font-family: 'Helvetica', Arial, sans-serif; text-align: left;  font-size: 17px; line-height: 30px; color: #707070; font-weight: 300">
-				<br>
-				<b>About the American Foundation for Suicide Prevention</b>
-				<br><br>
-				The American Foundation for Suicide Prevention is dedicated to saving lives and bringing hope to those affected by suicide. AFSP creates a culture that’s smart about mental health through education and community programs, develops suicide prevention through research and advocacy, and provides support for those affected by suicide. Led by CEO Robert Gebbia and headquartered in New York, AFSP has local chapters in all 50 states with programs and events nationwide. Learn more about AFSP in its latest Annual Report, and join the conversation on suicide prevention by following AFSP on Facebook, Twitter, Instagram, and YouTube.
-				<br><br>
-				By creating a Loving Memories account, you have agreed to receive our newsletter and other occasional emails from AFSP. If you would like to opt out of email communications not related to your Loving Memories account, you may unsubscribe here.
-				<br><br>
-				Thank you and welcome to the AFSP family.
-				<br><br>
-			</td>
-		</tr>
+								<!--spacer Start-->
+								<td valign="top" width="60"></td>
+								<!--spacer End-->
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td bgcolor="#ffffff" valign="top" height="40"></td>
+				</tr>
+				<!-- cta notification box end -->
 
-	</table>
-
-
-
-			</td>
-		</tr>
-
-
-
-		<!-- cta notification box -->
-		<tr>
-			<td valign="top" height="40" ></td>
-		</tr>
-		<tr>
-			<td valign="top">
-				<table width="640" valign="top" align="center" cellpadding="0" cellspacing="0" border="0" style="max-width: 640px; width: 100%; background:#EAEAEA;" class=" device-width">
-					<tr>
-
-						<!--spacer Start-->
-						<td valign="top" width="60"></td>
-						<!--spacer End-->
-
-						<td valign="middle" style="font-family: 'Helvetica', Arial, sans-serif; text-align: center;  font-size: 17px; line-height: 24px; color: #262626; font-weight: 300" height="80">
-							If you are experiences a crisis <a href="" target="_blank" style="color:#3D72FB; font-size: 17px; line-height: 24px;">Please get immediate help</a>
-						</td>
-
-						<!--spacer Start-->
-						<td valign="top" width="60" ></td>
-						<!--spacer End-->
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td bgcolor="#ffffff" valign="top" height="40"></td>
-		</tr>
-		<!-- cta notification box end -->
-
-		<!-- footer start -->
-		<tr>
-			<td valign="top">
-				<table width="640" valign="top" align="center" cellpadding="0" cellspacing="0" border="0"
-				       bgcolor="#FFFFFF" class="device-width" style="background-color: #FFFFFF">
-
-					<tr>
-						<td valign="top" align="center" height="20"></td>
-					</tr>
-					<!-- Footer logo -->
-					<tr>
-						<td valign="top" align="center" bgcolor="#FFFFFF">
-							<table class="step-links" width="90" height="50" border="0"
-							       align="center" cellspacing="0" cellpadding="0"
-							       style="margin: 0; padding: 0; border: 0; width: 100%; background-color:#FFFFFF; max-width:90px;">
-								<tr>
-									<td valign="top" align="center">
-										<img src="http://127.0.0.1:8000/images/mailer/footer-logo.png" alt="" width="92"
-										     height="37"
-										     style="margin: 0; padding: 0; display: block;max-width: 123px; width: 100%; height: auto; vertical-align: top; border: 0;"
-										     class="g-img"/>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td valign="top" align="center" height="20"></td>
-					</tr>
-					<!-- Footer social -->
-					<tr>
-						<td valign="top" align="center">
-							<table width="640" valign="top" align="center" cellpadding="0" cellspacing="0" border="0"
-							       bgcolor="#FFFFFF" class="device-width" style="background-color: #FFFFFF">
-
-								<tr>
-									<td valign="top" width="80"></td>
-									<td valign="top" style="max-width: 566px;">
-										<table valign="top" align="center" cellpadding="0" cellspacing="0" border="0"
-										       bgcolor="#FFFFFF" class="device-width" style="background-color: #FFFFFF">
-											<!-- FOOTER STEP LINKS END -->
-											<tr>
-												<td valign="top" style="max-width: 566px;">
-													<!-- FOOTER STEP LINKS -->
-													<table class="step-links" width="100%" border="0" align="center"
-													       cellspacing="0" cellpadding="0"
-													       style=" padding: 0; border: 0; width: 100%; background-color:#FFFFFF; max-width: 566px;">
-														<tr>
-															<td align="center" bgcolor="#FFFFFF"
-															    style="padding-top: 30px; padding-bottom: 5px">
-																<table width="100%" border="0" align="center"
-																       cellspacing="0" cellpadding="0"
-																       style="margin: 0; padding: 0; border: 0; width: 100%; min-width: 100%; max-width: 566px;">
-																	<tr>
-																		<td class="three-column"
-																		    style="text-align: center;">
-																			<!--[if (gte mso 9)|(IE)]>
+				<!-- footer start -->
+				<tr>
+					<td valign="top">
+						<table
+							width="640"
+							valign="top"
+							align="center"
+							cellpadding="0"
+							cellspacing="0"
+							border="0"
+							bgcolor="#FFFFFF"
+							class="device-width"
+							style="background-color: #ffffff"
+						>
+							<tr>
+								<td
+									valign="top"
+									align="center"
+									height="20"
+								></td>
+							</tr>
+							<!-- Footer logo -->
+							<tr>
+								<td
+									valign="top"
+									align="center"
+									bgcolor="#FFFFFF"
+								>
+									<table
+										class="step-links"
+										width="90"
+										height="50"
+										border="0"
+										align="center"
+										cellspacing="0"
+										cellpadding="0"
+										style="
+											margin: 0;
+											padding: 0;
+											border: 0;
+											width: 100%;
+											background-color: #ffffff;
+											max-width: 90px;
+										"
+									>
+										<tr>
+											<td valign="top" align="center">
+												<img
+													src="http://127.0.0.1:8000/images/mailer/footer-logo.png"
+													alt=""
+													width="92"
+													height="37"
+													style="
+														margin: 0;
+														padding: 0;
+														display: block;
+														max-width: 123px;
+														width: 100%;
+														height: auto;
+														vertical-align: top;
+														border: 0;
+													"
+													class="g-img"
+												/>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td
+									valign="top"
+									align="center"
+									height="20"
+								></td>
+							</tr>
+							<!-- Footer social -->
+							<tr>
+								<td valign="top" align="center">
+									<table
+										width="640"
+										valign="top"
+										align="center"
+										cellpadding="0"
+										cellspacing="0"
+										border="0"
+										bgcolor="#FFFFFF"
+										class="device-width"
+										style="background-color: #ffffff"
+									>
+										<tr>
+											<td valign="top" width="80"></td>
+											<td
+												valign="top"
+												style="max-width: 566px"
+											>
+												<table
+													valign="top"
+													align="center"
+													cellpadding="0"
+													cellspacing="0"
+													border="0"
+													bgcolor="#FFFFFF"
+													class="device-width"
+													style="
+														background-color: #ffffff;
+													"
+												>
+													<!-- FOOTER STEP LINKS END -->
+													<tr>
+														<td
+															valign="top"
+															style="
+																max-width: 566px;
+															"
+														>
+															<!-- FOOTER STEP LINKS -->
+															<table
+																class="step-links"
+																width="100%"
+																border="0"
+																align="center"
+																cellspacing="0"
+																cellpadding="0"
+																style="
+																	padding: 0;
+																	border: 0;
+																	width: 100%;
+																	background-color: #ffffff;
+																	max-width: 566px;
+																"
+															>
+																<tr>
+																	<td
+																		align="center"
+																		bgcolor="#FFFFFF"
+																		style="
+																			padding-top: 30px;
+																			padding-bottom: 5px;
+																		"
+																	>
+																		<table
+																			width="100%"
+																			border="0"
+																			align="center"
+																			cellspacing="0"
+																			cellpadding="0"
+																			style="
+																				margin: 0;
+																				padding: 0;
+																				border: 0;
+																				width: 100%;
+																				min-width: 100%;
+																				max-width: 566px;
+																			"
+																		>
+																			<tr>
+																				<td
+																					class="three-column"
+																					style="
+																						text-align: center;
+																					"
+																				>
+																					<!--[if (gte mso 9)|(IE)]>
 																			<table align="center" valign="top"
 																			       style="vertical-align: top;">
 																				<tr>
 																					<td width="120" valign="top">
 																			<![endif]-->
-																			<div class="column"
-																			     style="display: inline-block !important; vertical-align: top; width:40px; margin-bottom: 15px;">
-																				<table width="100%"
-																				       style="width: 100%; min-width: 100%;">
-																					<tr>
-																						<td class="inner">
-																							<table class="contents"
-																							       width="100%"
-																							       style="width: 100%; min-width: 100%;">
-																								<tr>
-																									<td style="text-align: center;">
-																										<a href="#"
-																										   height="20"
-																										   style="text-decoration: none; height:20px;">
-																											<img src="http://127.0.0.1:8000/images/mailer/icon-facebook.png"
-																											     width="20"
-																											     height="20"
-																											     alt=""
-																											     style="max-width:20px; margin: 0; padding: 0; display: inline-block; width: 100%; height: auto; vertical-align: top; border: 0;"/>
-																										</a>
-																									</td>
-																								</tr>
-																							</table>
-																						</td>
-																					</tr>
-																				</table>
-																			</div>
-																			<!--[if (gte mso 9)|(IE)]>
+																					<div
+																						class="column"
+																						style="
+																							display: inline-block !important;
+																							vertical-align: top;
+																							width: 40px;
+																							margin-bottom: 15px;
+																						"
+																					>
+																						<table
+																							width="100%"
+																							style="
+																								width: 100%;
+																								min-width: 100%;
+																							"
+																						>
+																							<tr>
+																								<td
+																									class="inner"
+																								>
+																									<table
+																										class="contents"
+																										width="100%"
+																										style="
+																											width: 100%;
+																											min-width: 100%;
+																										"
+																									>
+																										<tr>
+																											<td
+																												style="
+																													text-align: center;
+																												"
+																											>
+																												<a
+																													href="#"
+																													height="20"
+																													style="
+																														text-decoration: none;
+																														height: 20px;
+																													"
+																												>
+																													<img
+																														src="http://127.0.0.1:8000/images/mailer/icon-facebook.png"
+																														width="20"
+																														height="20"
+																														alt=""
+																														style="
+																															max-width: 20px;
+																															margin: 0;
+																															padding: 0;
+																															display: inline-block;
+																															width: 100%;
+																															height: auto;
+																															vertical-align: top;
+																															border: 0;
+																														"
+																													/>
+																												</a>
+																											</td>
+																										</tr>
+																									</table>
+																								</td>
+																							</tr>
+																						</table>
+																					</div>
+																					<!--[if (gte mso 9)|(IE)]>
 																			</td>
 																			<td width="40" valign="top">
 																			<![endif]-->
 
-																			<div class="column"
-																			     style="display: inline-block !important;vertical-align: top; width:40px; margin-bottom: 15px;">
-																				<table width="100%"
-																				       style="width: 100%; min-width: 100%;">
-																					<tr>
-																						<td class="inner">
-																							<table class="contents"
-																							       width="100%"
-																							       style="width: 100%; min-width: 100%;">
-																								<tr>
-																									<td style="text-align: center;">
-																										<a href="#"
-																										   height="20"
-																										   style="text-decoration: none; height:20px;">
-																											<img src="http://127.0.0.1:8000/images/mailer/icon-instagram.png"
-																											     width="20"
-																											     height="20"
-																											     alt=""
-																											     style="max-width: 20px; margin: 0; padding: 0; display: inline-block; width: 100%; height: auto; vertical-align: top; border: 0;"/>
-																										</a>
-																									</td>
-																								</tr>
-																							</table>
-																						</td>
-																					</tr>
-																				</table>
-																			</div>
-																			<!--[if (gte mso 9)|(IE)]>
+																					<div
+																						class="column"
+																						style="
+																							display: inline-block !important;
+																							vertical-align: top;
+																							width: 40px;
+																							margin-bottom: 15px;
+																						"
+																					>
+																						<table
+																							width="100%"
+																							style="
+																								width: 100%;
+																								min-width: 100%;
+																							"
+																						>
+																							<tr>
+																								<td
+																									class="inner"
+																								>
+																									<table
+																										class="contents"
+																										width="100%"
+																										style="
+																											width: 100%;
+																											min-width: 100%;
+																										"
+																									>
+																										<tr>
+																											<td
+																												style="
+																													text-align: center;
+																												"
+																											>
+																												<a
+																													href="#"
+																													height="20"
+																													style="
+																														text-decoration: none;
+																														height: 20px;
+																													"
+																												>
+																													<img
+																														src="http://127.0.0.1:8000/images/mailer/icon-instagram.png"
+																														width="20"
+																														height="20"
+																														alt=""
+																														style="
+																															max-width: 20px;
+																															margin: 0;
+																															padding: 0;
+																															display: inline-block;
+																															width: 100%;
+																															height: auto;
+																															vertical-align: top;
+																															border: 0;
+																														"
+																													/>
+																												</a>
+																											</td>
+																										</tr>
+																									</table>
+																								</td>
+																							</tr>
+																						</table>
+																					</div>
+																					<!--[if (gte mso 9)|(IE)]>
 																			</td>
 																			<td width="40" valign="top">
 																			<![endif]-->
 
-																			<div class="column"
-																			     style="display: inline-block !important; vertical-align: top;width:40px; margin-bottom: 15px;">
-																				<table width="100%"
-																				       style="width: 100%; min-width: 100%;">
-																					<tr>
-																						<td class="inner">
-																							<table class="contents"
-																							       width="100%"
-																							       style="width: 100%; min-width: 100%;">
-																								<tr>
-																									<td style="text-align: center;">
-																										<a href="#"
-																										   height="20"
-																										   style="text-decoration: none; height:20px;">
-																											<img src="http://127.0.0.1:8000/images/mailer/icon-twitter.png"
-																											     width="20"
-																											     height="20"
-																											     alt=""
-																											     style="max-width:20px; margin: 0; padding: 0; display: inline-block; width: 100%; height: auto; vertical-align: top; border: 0;"/>
-																										</a>
-																									</td>
-																								</tr>
-																							</table>
-																						</td>
-																					</tr>
-																				</table>
-																			</div>
-																			<!--[if (gte mso 9)|(IE)]>
+																					<div
+																						class="column"
+																						style="
+																							display: inline-block !important;
+																							vertical-align: top;
+																							width: 40px;
+																							margin-bottom: 15px;
+																						"
+																					>
+																						<table
+																							width="100%"
+																							style="
+																								width: 100%;
+																								min-width: 100%;
+																							"
+																						>
+																							<tr>
+																								<td
+																									class="inner"
+																								>
+																									<table
+																										class="contents"
+																										width="100%"
+																										style="
+																											width: 100%;
+																											min-width: 100%;
+																										"
+																									>
+																										<tr>
+																											<td
+																												style="
+																													text-align: center;
+																												"
+																											>
+																												<a
+																													href="#"
+																													height="20"
+																													style="
+																														text-decoration: none;
+																														height: 20px;
+																													"
+																												>
+																													<img
+																														src="http://127.0.0.1:8000/images/mailer/icon-twitter.png"
+																														width="20"
+																														height="20"
+																														alt=""
+																														style="
+																															max-width: 20px;
+																															margin: 0;
+																															padding: 0;
+																															display: inline-block;
+																															width: 100%;
+																															height: auto;
+																															vertical-align: top;
+																															border: 0;
+																														"
+																													/>
+																												</a>
+																											</td>
+																										</tr>
+																									</table>
+																								</td>
+																							</tr>
+																						</table>
+																					</div>
+																					<!--[if (gte mso 9)|(IE)]>
 																			</td>
 																			<td width="40" valign="top">
 																			<![endif]-->
 
-
-																			<div class="column"
-																			     style="display: inline-block !important; vertical-align: top;width:40px; margin-bottom: 15px;">
-																				<table width="100%"
-																				       style="width: 100%; min-width: 100%;">
-																					<tr>
-																						<td class="inner">
-																							<table class="contents"
-																							       width="100%"
-																							       style="width: 100%; min-width: 100%;">
-																								<tr>
-																									<td style="text-align: center;">
-																										<a href="#"
-																										   height="20"
-																										   style="text-decoration: none; height:50px;">
-																											<img src="http://127.0.0.1:8000/images/mailer/icon-linkedin.png"
-																											     width="20"
-																											     height="20"
-																											     alt=""
-																											     style="max-width:20px; margin: 0; padding: 0; display: inline-block; width: 100%; height: auto; vertical-align: top; border: 0;"/>
-																										</a>
-																									</td>
-																								</tr>
-																							</table>
-																						</td>
-																					</tr>
-																				</table>
-																			</div>
-																			<!--[if (gte mso 9)|(IE)]>
+																					<div
+																						class="column"
+																						style="
+																							display: inline-block !important;
+																							vertical-align: top;
+																							width: 40px;
+																							margin-bottom: 15px;
+																						"
+																					>
+																						<table
+																							width="100%"
+																							style="
+																								width: 100%;
+																								min-width: 100%;
+																							"
+																						>
+																							<tr>
+																								<td
+																									class="inner"
+																								>
+																									<table
+																										class="contents"
+																										width="100%"
+																										style="
+																											width: 100%;
+																											min-width: 100%;
+																										"
+																									>
+																										<tr>
+																											<td
+																												style="
+																													text-align: center;
+																												"
+																											>
+																												<a
+																													href="#"
+																													height="20"
+																													style="
+																														text-decoration: none;
+																														height: 50px;
+																													"
+																												>
+																													<img
+																														src="http://127.0.0.1:8000/images/mailer/icon-linkedin.png"
+																														width="20"
+																														height="20"
+																														alt=""
+																														style="
+																															max-width: 20px;
+																															margin: 0;
+																															padding: 0;
+																															display: inline-block;
+																															width: 100%;
+																															height: auto;
+																															vertical-align: top;
+																															border: 0;
+																														"
+																													/>
+																												</a>
+																											</td>
+																										</tr>
+																									</table>
+																								</td>
+																							</tr>
+																						</table>
+																					</div>
+																					<!--[if (gte mso 9)|(IE)]>
 																			</td>
 																			<td width="40" valign="top">
 																			<![endif]-->
 
-																			<div class="column"
-																			     style="display: inline-block !important; vertical-align: top;width:40px; margin-bottom: 15px;">
-																				<table width="100%"
-																				       style="width: 100%; min-width: 100%;">
-																					<tr>
-																						<td class="inner">
-																							<table class="contents"
-																							       width="100%"
-																							       style="width: 100%; min-width: 100%;">
-																								<tr>
-																									<td style="text-align: center;">
-																										<a href="#"
-																										   height="20"
-																										   style="text-decoration: none; height:20px;">
-																											<img src="http://127.0.0.1:8000/images/mailer/icon-youtube.png"
-																											     width="24"
-																											     height="20"
-																											     alt=""
-																											     style="max-width:24px; margin: 0; padding: 0; display: inline-block; width: 100%; height: auto; vertical-align: top; border: 0;"/>
-																										</a>
-																									</td>
-																								</tr>
-																							</table>
-																						</td>
-																					</tr>
-																				</table>
-																			</div>
-																			<!--[if (gte mso 9)|(IE)]>
+																					<div
+																						class="column"
+																						style="
+																							display: inline-block !important;
+																							vertical-align: top;
+																							width: 40px;
+																							margin-bottom: 15px;
+																						"
+																					>
+																						<table
+																							width="100%"
+																							style="
+																								width: 100%;
+																								min-width: 100%;
+																							"
+																						>
+																							<tr>
+																								<td
+																									class="inner"
+																								>
+																									<table
+																										class="contents"
+																										width="100%"
+																										style="
+																											width: 100%;
+																											min-width: 100%;
+																										"
+																									>
+																										<tr>
+																											<td
+																												style="
+																													text-align: center;
+																												"
+																											>
+																												<a
+																													href="#"
+																													height="20"
+																													style="
+																														text-decoration: none;
+																														height: 20px;
+																													"
+																												>
+																													<img
+																														src="http://127.0.0.1:8000/images/mailer/icon-youtube.png"
+																														width="24"
+																														height="20"
+																														alt=""
+																														style="
+																															max-width: 24px;
+																															margin: 0;
+																															padding: 0;
+																															display: inline-block;
+																															width: 100%;
+																															height: auto;
+																															vertical-align: top;
+																															border: 0;
+																														"
+																													/>
+																												</a>
+																											</td>
+																										</tr>
+																									</table>
+																								</td>
+																							</tr>
+																						</table>
+																					</div>
+																					<!--[if (gte mso 9)|(IE)]>
 																			</td>
 																			<td width="40" valign="top">
 																			<![endif]-->
 
-																			<div class="column"
-																			     style="display: inline-block !important; vertical-align: top;width:40px; margin-bottom: 15px;">
-																				<table width="100%"
-																				       style="width: 100%; min-width: 100%;">
-																					<tr>
-																						<td class="inner">
-																							<table class="contents"
-																							       width="100%"
-																							       style="width: 100%; min-width: 100%;">
-																								<tr>
-																									<td style="text-align: center;">
-																										<a href="#"
-																										   height="50"
-																										   style="text-decoration: none; height:20px;">
-																											<img src="http://127.0.0.1:8000/images/mailer/icon-mighty.png"
-																											     width="30"
-																											     height="20"
-																											     alt=""
-																											     style="max-width:30px; margin: 0; padding: 0; display: inline-block; width: 100%; height: auto; vertical-align: top; border: 0;"/>
-																										</a>
-																									</td>
-																								</tr>
-																							</table>
-																						</td>
-																					</tr>
-																				</table>
-																			</div>
-																			<!--[if (gte mso 9)|(IE)]>
+																					<div
+																						class="column"
+																						style="
+																							display: inline-block !important;
+																							vertical-align: top;
+																							width: 40px;
+																							margin-bottom: 15px;
+																						"
+																					>
+																						<table
+																							width="100%"
+																							style="
+																								width: 100%;
+																								min-width: 100%;
+																							"
+																						>
+																							<tr>
+																								<td
+																									class="inner"
+																								>
+																									<table
+																										class="contents"
+																										width="100%"
+																										style="
+																											width: 100%;
+																											min-width: 100%;
+																										"
+																									>
+																										<tr>
+																											<td
+																												style="
+																													text-align: center;
+																												"
+																											>
+																												<a
+																													href="#"
+																													height="50"
+																													style="
+																														text-decoration: none;
+																														height: 20px;
+																													"
+																												>
+																													<img
+																														src="http://127.0.0.1:8000/images/mailer/icon-mighty.png"
+																														width="30"
+																														height="20"
+																														alt=""
+																														style="
+																															max-width: 30px;
+																															margin: 0;
+																															padding: 0;
+																															display: inline-block;
+																															width: 100%;
+																															height: auto;
+																															vertical-align: top;
+																															border: 0;
+																														"
+																													/>
+																												</a>
+																											</td>
+																										</tr>
+																									</table>
+																								</td>
+																							</tr>
+																						</table>
+																					</div>
+																					<!--[if (gte mso 9)|(IE)]>
 																			</td>
 																			</tr>
 																			</table>
 																			<![endif]-->
-																		</td>
-																	</tr>
-																</table>
-															</td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</td>
-									<td width="80"></td>
-								</tr>
-							</table>
-
-						</td>
-					</tr>
-					<!-- Footer unsubscribe -->
-					<tr>
-						<td valign="top" align="center">
-							<table valign="top" align="center" cellpadding="0" cellspacing="0" border="0"
-							       bgcolor="#FFFFFF" class="device-width" style="background-color: #FFFFFF">
-								<tr>
-									<td valign="top" height="20px" align="center" bgcolor="#FFFFFF"
-									    style="background-color: #FFFFFF!important;">
-										<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF"
-										       style="background-color: #FFFFFF!important;border-collapse: collapse; border-spacing: 0; table-layout: fixed;"
-										       align="center">
-											<tr>
-												<td valign="top" height="10" align="center" bgcolor="#FFFFFF">
-													&nbsp;
-												</td>
-											</tr>
-											<tr>
-												<td valign="top" align="center" bgcolor="#FFFFFF"
-												    style="font-family: 'Helvetica', Arial, sans-serif; text-align: center; font-size: 12px; line-height: 18px; color: #8E8E8E!important;">
-													If you have trouble reading this email, <a href="#" target="_blank" style="font-size: 12px; line-height: 18px; color: #8E8E8E!important;">view in your browser.</a> <br>
-													If you wouldn’t like to receive newsletters from AFSP <a href="#" target="_blank" style="font-size: 12px; line-height: 18px; color: #8E8E8E!important;">unsubscribe here</a>.
-												</td>
-											</tr>
-											<tr>
-												<td valign="top" height="30" align="center" bgcolor="#FFFFFF">
-													&nbsp;
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<!-- footer end -->
-
-	</table>
-</div>
-</body>
+																				</td>
+																			</tr>
+																		</table>
+																	</td>
+																</tr>
+															</table>
+														</td>
+													</tr>
+												</table>
+											</td>
+											<td width="80"></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<!-- Footer unsubscribe -->
+							<tr>
+								<td valign="top" align="center">
+									<table
+										valign="top"
+										align="center"
+										cellpadding="0"
+										cellspacing="0"
+										border="0"
+										bgcolor="#FFFFFF"
+										class="device-width"
+										style="background-color: #ffffff"
+									>
+										<tr>
+											<td
+												valign="top"
+												height="20px"
+												align="center"
+												bgcolor="#FFFFFF"
+												style="
+													background-color: #ffffff !important;
+												"
+											>
+												<table
+													width="100%"
+													border="0"
+													cellpadding="0"
+													cellspacing="0"
+													bgcolor="#FFFFFF"
+													style="
+														background-color: #ffffff !important;
+														border-collapse: collapse;
+														border-spacing: 0;
+														table-layout: fixed;
+													"
+													align="center"
+												>
+													<tr>
+														<td
+															valign="top"
+															height="10"
+															align="center"
+															bgcolor="#FFFFFF"
+														>
+															&nbsp;
+														</td>
+													</tr>
+													<tr>
+														<td
+															valign="top"
+															align="center"
+															bgcolor="#FFFFFF"
+															style="
+																font-family: 'Helvetica',
+																	Arial,
+																	sans-serif;
+																text-align: center;
+																font-size: 12px;
+																line-height: 18px;
+																color: #8e8e8e !important;
+															"
+														>
+															If you have trouble
+															reading this email,
+															<a
+																href="#"
+																target="_blank"
+																style="
+																	font-size: 12px;
+																	line-height: 18px;
+																	color: #8e8e8e !important;
+																"
+																>view in your
+																browser.</a
+															>
+															<br />
+															If you wouldn’t like
+															to receive
+															newsletters from
+															AFSP
+															<a
+																href="#"
+																target="_blank"
+																style="
+																	font-size: 12px;
+																	line-height: 18px;
+																	color: #8e8e8e !important;
+																"
+																>unsubscribe
+																here</a
+															>.
+														</td>
+													</tr>
+													<tr>
+														<td
+															valign="top"
+															height="30"
+															align="center"
+															bgcolor="#FFFFFF"
+														>
+															&nbsp;
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<!-- footer end -->
+			</table>
+		</div>
+	</body>
+</html>
