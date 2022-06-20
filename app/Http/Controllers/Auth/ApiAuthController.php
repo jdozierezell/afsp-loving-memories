@@ -20,7 +20,7 @@ class ApiAuthController extends APIBaseController
 		$validator = Validator::make($request->all(), [
 			'email' => 'required|string|email|max:255|unique:users,email',
 			'password' => 'required|string|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
-		],['password.regex'=>'Your password must be more than 8 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character.']);
+		],['password.regex'=>'Your password must be more than 8 characters long, and must contain at one uppercase and lowercase letter, one number and one special character.']);
 
 		if ($validator->fails())
 		{
@@ -42,7 +42,7 @@ class ApiAuthController extends APIBaseController
 		$validator = Validator::make($request->all(), [
 			'email' => 'required|string|email|max:255',
 			'password' => 'required|string|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/',
-		],['password.regex'=>'Your password must be more than 8 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character.']);
+		],['password.regex'=>'Your password must be more than 8 characters long, and must contain at one uppercase and lowercase letter, one number and one special character.']);
 		if ($validator->fails())
 		{
 			return response(['error'=>$validator->errors()->all()], 422);
@@ -57,7 +57,7 @@ class ApiAuthController extends APIBaseController
 				$response = ['token' => $token,'verified'=>$user_verified,'notification_count'=>$user->notification_count];
 				return response($response, 200);
 			} else {
-				$response = ["message" => "Specified account not exist",'is_imported'=>$user->is_imported];
+				$response = ["message" => "Your password is incorrect. Please try again or click the Forgot Password link below.",'is_imported'=>$user->is_imported];
 				return response($response, 422);
 			}
 		}
@@ -155,7 +155,7 @@ class ApiAuthController extends APIBaseController
 			[
 			'email' => 'required|email|unique:users,email,'.\Auth::ID(),
 			'password' => $request->password != null ?'sometimes|required|string|min:6|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/': ''
-		],['password.regex'=>'Your password must be more than 8 characters long, should contain at-least 1 Uppercase, 1 Lowercase, 1 Numeric and 1 special character.']);
+		],['password.regex'=>'Your password must be more than 8 characters long, and must contain at one uppercase and lowercase letter, one number and one special character.']);
 		if ($validator->fails())
 		{
 			return response(['error'=>$validator->errors()->all()], 422);
@@ -178,7 +178,7 @@ class ApiAuthController extends APIBaseController
 			return response($response, 200);
 		}
 		else {
-			$response = ["message" => "Specified account not exist"];
+			$response = ["message" => "Your password is incorrect. Please try again or click the Forgot Password link below."];
 			return response($response, 422);
 		}
 	}
