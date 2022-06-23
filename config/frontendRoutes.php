@@ -3,7 +3,7 @@
 return [
 
 	'view-memory'=>'/view-memory#{:access_token}',
-	'edit-memory'=>'app/edit-memory#{:access_token}',
+	'edit-memory'=>'/app/edit-memory#{:access_token}',
 	'admin-preview-memory'=>'/view-memory?admin=1#{:access_token}',
 	'preview-memory'=>'/app/preview-memory#{:access_token}',
 	'invite-friend-memory'=>'/add-friend-memory?token={:access_token}',
