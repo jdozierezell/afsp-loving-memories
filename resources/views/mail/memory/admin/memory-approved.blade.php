@@ -80,7 +80,7 @@
 				<br>
 				Your memory can now be seen on the Loving Memories website at <a  style="font-family: 'Helvetica', Arial, sans-serif; text-align: left;  font-size: 17px; line-height: 30px; color: #3D72FB;" href="{{$memory['url']}}">{{$memory['url']}}</a>.
 				Please take a moment to review your memory to ensure that it looks just as you intended.
-				If you need to make additional updates, you may do so at  <a  style="font-family: 'Helvetica', Arial, sans-serif; text-align: left;  font-size: 17px; line-height: 30px; color: #3D72FB;" href="{{$memory['edit_link']}}">{{$memory['edit_link']}}</a>
+				If you need to make additional updates, you may do so at  <a  style="font-family: 'Helvetica', Arial, sans-serif; text-align: left;  font-size: 17px; line-height: 30px; color: #3D72FB;" href="https://lovingmemories.afsp.org/app/your-memories">https://lovingmemories.afsp.org/app/your-memories</a>
 				<br>
 			</td>
 		</tr>
