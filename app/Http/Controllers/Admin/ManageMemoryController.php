@@ -41,7 +41,7 @@ class ManageMemoryController extends APIBaseController
 	{
 
 		$memory=Memory::with(['photos','favorites','specialDates','friends','sharedVisibility'])->where('id',$memory->id)->first();
-		$preview_url=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.admin-preview-memory'),'access_token',$memory->access_token);
+		$preview_url=config('app.APP_FRONT_URL').'/'.$this->replaceURLPrams(config('frontendRoutes.admin-preview-memory'),'access_token',$memory->access_token);
 
 		return view('admin/memory-single',compact('memory','preview_url'));
 	}
@@ -78,8 +78,8 @@ class ManageMemoryController extends APIBaseController
 		);;
 		$memory_detail['loving']=$memory->loving;
 		$memory_detail['email']=$memory->user->email;
-		$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);;
-		$memory_detail['edit_link']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.edit-memory'),'access_token',$memory->access_token);;
+		$memory_detail['url']=config('app.APP_FRONT_URL').'/'.$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);;
+		$memory_detail['edit_link']=config('app.APP_FRONT_URL').'/'.$this->replaceURLPrams(config('frontendRoutes.edit-memory'),'access_token',$memory->access_token);;
 		dispatch(new \App\Jobs\SendMailJob('MemoryApprovedMail',$memory_detail));
 
 		return back()->with('success','Memory Approved');
@@ -168,7 +168,7 @@ class ManageMemoryController extends APIBaseController
 		$memory_detail['cover_image']=$this->circleImage($memory->getAttributes()['thumbnail']);;
 		$memory_detail['loving']=$memory->loving;
 		$memory_detail['email']=$memory->user->email;
-		$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);;
+		$memory_detail['url']=config('app.APP_FRONT_URL').'/'.$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);;
 		dispatch(new \App\Jobs\SendMailJob('MemoryRejectedMail',$memory_detail));
 
 		return back()->with('warning','Memory Rejected');
@@ -189,7 +189,7 @@ class ManageMemoryController extends APIBaseController
 		MemoryAdminPreview::updateOrCreate(['memory_id'=>$memory->id],
 		['memory_id'=>$memory->id,'access_token'=>$temp_token,'expire_at'=>Carbon::now()->addMinutes(30)]);
 
-		$url=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.admin-preview-memory'),'access_token',$temp_token);
+		$url=config('app.APP_FRONT_URL').'/'.$this->replaceURLPrams(config('frontendRoutes.admin-preview-memory'),'access_token',$temp_token);
 
 
 		return response(['url'=>$url]);
@@ -219,7 +219,7 @@ class ManageMemoryController extends APIBaseController
 		$memory_detail['loving']=$memory->loving;
 		$memory_detail['email']=$memory->user->email;
 		$memory_detail['friend_email']=$memory_friend->email;
-		$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);;
+		$memory_detail['url']=config('app.APP_FRONT_URL').'/'.$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);;
 
 		//memory author
 		dispatch(new \App\Jobs\SendMailJob('FriendMemoryApprovedMail',$memory_detail));

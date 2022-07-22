@@ -61,7 +61,7 @@ class SpecialDatesNotification extends Command
 				$memory_detail['cover_image']=$this->circleImage($memory->getAttributes()['thumbnail']);;
 				$memory_detail['loving']=$memory->loving;
 				$memory_detail['email']=$special_date->memory->user->email;
-				$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);
+				$memory_detail['url']=config('app.APP_FRONT_URL').'/'.$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);
 				if(config('app.debug') == false)
 					\Mail::to($memory_detail['email'])->send(new MemorySpecialDateMail($memory_detail));
 			}

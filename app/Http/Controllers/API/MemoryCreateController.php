@@ -239,7 +239,7 @@ class MemoryCreateController extends APIBaseController
 					$memory_detail['email']=$invite;
 					$memory_detail['access_token']=$access_token;
 					$memory_detail['loving']=$memory->loving;
-					$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);
+					$memory_detail['url']=config('app.APP_FRONT_URL').'/'.$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);
 //					\Mail::to($invite)->send(new MemorySharedMail($memory_detail));
 					dispatch(new \App\Jobs\SendMailJob('MemorySharedMail',$memory_detail));
 					MemoryVisibility::firstOrCreate(['email'=>$invite,'memory_id'=>$memory->id],['email'=>$invite,'memory_id'=>$memory->id,'access_token'=>$access_token]);
@@ -344,7 +344,7 @@ class MemoryCreateController extends APIBaseController
 			);;
 			$memory_detail['loving']=$memory->loving;
 			$memory_detail['email']=Auth::User()->email;
-			$memory_detail['url']=config('app.APP_FRONT_URL').$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);
+			$memory_detail['url']=config('app.APP_FRONT_URL').'/'.$this->replaceURLPrams(config('frontendRoutes.view-memory'),'access_token',$memory->access_token);
 
 			dispatch(new \App\Jobs\SendMailJob($mail_file,$memory_detail));
 
